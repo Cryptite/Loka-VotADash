@@ -1,0 +1,46 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+div {
+    width: 800px;
+    max-width: 800px;
+}
+
+.red {
+    position: absolute;
+    top: -25px;
+    left: 300px;
+    font-size: 40px;
+    color: #db3100;
+}
+
+.blue {
+    position: absolute;
+    top: -25px;
+    right: 370px;
+    font-size: 40px;
+    color: #69a5ff;
+}
+
+ul {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+p {
+    font-size: 30px;
+    color: #fff;
+    display: inline;
+    vertical-align: top;
+    margin-top: 5px;
+}

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    div.container
+        h1.red= data[0].bluescore
+        h1.blue= data[0].redscore
+        table
+            ul
+                each item in data
+                    each score, player in item.bluetopplayers
+                        li
+                            div.player
+                                img(src="https://minotar.net/avatar/#{player}/45.png")
+                                p= player + " " + score
