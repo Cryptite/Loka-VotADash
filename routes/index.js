@@ -39,8 +39,10 @@ var download = function (player) {
         console.log('content-length:', res.headers['content-length']);
 
         request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("./public/images/" + player + "_dl.png")).on('close', function () {
-            console.log("Renaming " + player);
-            fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
+            if (fs.existsSync("./public/images/" + player + "_dl.png")) {
+                console.log("Renaming " + player);
+                fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
+            }
         });
     });
 };
