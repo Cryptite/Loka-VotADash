@@ -84,6 +84,18 @@ body {
     color: #eeeeee;
 }
 
+.point.point-red {
+    color: #db3100;
+}
+
+.point.point-blue {
+    color: #69a5ff;
+}
+
+.point.point-neutral {
+    color: #eeeeee;
+}
+
 p {
     font-size: 30px;
     color: #fff;

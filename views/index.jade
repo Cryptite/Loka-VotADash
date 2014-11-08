@@ -23,8 +23,8 @@ block content
                         br
                         p.kdr= score
     div.points
-        p.point= "lower"
+        p(class="point point-#{data[0].point_lower}")= "lower"
         br
-        p.point= "middle"
+        p(class="point point-#{data[0].point_middle}")= "middle"
         br
-        p.point= "hidden"
+        p(class="point point-#{data[0].point_hidden}")= "hidden"
