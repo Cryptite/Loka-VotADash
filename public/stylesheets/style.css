@@ -1,40 +1,87 @@
 body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px "varela round", Helvetica, Arial, sans-serif;
 }
 
-a {
-    color: #00B7FF;
+.redplayers {
+    position: absolute;
+    left: 358px;
+    width: 560px;
+    bottom: 0;
+    /*background: rgba(0, 183, 255, 0.27);*/
 }
 
-div {
-    width: 800px;
-    max-width: 800px;
+.blueplayers {
+    position: absolute;
+    right: 76px;
+    width: 560px;
+    bottom: 0;
+    /*background: rgba(0, 183, 255, 0.27);*/
+}
+
+.player {
+    display: inline-block;
+    text-align: center;
+    width: 80px;
+    overflow: hidden;
+    /*border: 1px solid rgba(255, 33, 0, 1);*/
+    padding-left: 4px;
+    padding-right: 8px;
+}
+
+.playername {
+    width: 70px;
+    font-size: 9px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.avatar {
+    top: 2px;
+    left: 0;
+    float: left;
+}
+
+.kdr {
+    font-size: 13px;
+    text-align: center;
+    float: left;
+    margin-top: 2px;
+    width: 50px;
+    font-weight: bold;
 }
 
 .red {
     position: absolute;
-    top: -25px;
-    left: 300px;
-    font-size: 40px;
+    top: -39px;
+    left: 218px;
+    font-size: 50px;
     color: #db3100;
+    width: 106px;
+    text-align: center;
 }
 
 .blue {
     position: absolute;
-    top: -25px;
-    right: 370px;
-    font-size: 40px;
+    top: -39px;
+    right: 216px;
+    font-size: 50px;
     color: #69a5ff;
+    width: 106px;
+    text-align: center;
 }
 
-ul {
+.points {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    right: 0;
+    top: 319px;
+    width: 105px;
+    text-align: center;
 }
 
-li {
-    list-style-type: none;
+.point {
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #eeeeee;
 }
 
 p {

@@ -4,11 +4,29 @@ block content
     div.container
         h1.red= data[0].bluescore
         h1.blue= data[0].redscore
-        table
-            ul
-                each item in data
-                    each score, player in item.bluetopplayers
-                        li
-                            div.player
-                                img(src="https://minotar.net/avatar/#{player}/45.png")
-                                p= player + " " + score
+        div.redplayers
+            each item in data
+                each score, player in item.redtopplayers
+                    div.player
+                        p.playername= player
+                        br
+                        img.avatar(src="./images/steve.png")
+                        //img.avatar(src="https://minotar.net/avatar/#{player}/49.png")
+                        br
+                        p.kdr= score
+        div.blueplayers
+            each item in data
+                each score, player in item.bluetopplayers
+                    div.player
+                        p.playername= player
+                        br
+                        img.avatar(src="./images/steve.png")
+                        //img.avatar(src="https://minotar.net/avatar/#{player}/49.png")
+                        br
+                        p.kdr= score
+    div.points
+        p.point= "lower"
+        br
+        p.point= "middle"
+        br
+        p.point= "hidden"
