@@ -21,6 +21,7 @@ var grabAvatars = function (list) {
     for (var player in list) {
         var avatarPath = "./public/images/" + player + ".png";
         if (fs.existsSync(avatarPath)
+            && fs.statSync(avatarPath)["size"] > 0
             && fs.statSync(avatarPath)["size"] != fs.statSync(stevePath)["size"]) continue;
 
         //Copy steve skin as player skin first
