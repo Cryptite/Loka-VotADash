@@ -36,7 +36,7 @@ var download = function (uri, filename, player, callback) {
         console.log('content-type:', res.headers['content-type']);
         console.log('content-length:', res.headers['content-length']);
 
-        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback(p));
+        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback(player));
     });
 };
 
