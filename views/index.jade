@@ -2,8 +2,8 @@ extends layout
 
 block content
     div.container
-        h1.red= data[0].bluescore
-        h1.blue= data[0].redscore
+        h1.red= data[0].redscore
+        h1.blue= data[0].bluescore
         div.redplayers
             each item in data
                 each score, player in item.redtopplayers
