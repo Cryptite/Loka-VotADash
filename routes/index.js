@@ -16,27 +16,31 @@ router.get('/', function (req, res) {
 });
 
 var grabAvatars = function (list) {
-    for (var p in list) {
-        if (fs.existsSync("./public/images/" + p + ".png")) continue;
+    var stevePath = "./public/images/steve.png";
+
+    for (var player in list) {
+        var avatarPath = "./public/images/" + player + ".png";
+        if (fs.existsSync(avatarPath)
+            && fs.statSync(avatarPath)["size"] != fs.statSync(stevePath)["size"]) continue;
 
         //Copy steve skin as player skin first
-        fs.createReadStream('./public/images/steve.png').pipe(fs.createWriteStream('./public/images/' + p + ".png"));
+        fs.createReadStream(stevePath).pipe(fs.createWriteStream(avatarPath));
 
         //Then download over it
-        console.log("Trying to download avatar for " + p);
-        download("https://minotar.net/avatar/" + p + "/49.png", "./public/images/" + p + "_dl.png", p, function (player) {
-            console.log("Got avatar for " + player + ", renaming");
-            fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
-        });
+        console.log("Trying to download avatar for " + player);
+        download(player);
     }
 }
 
-var download = function (uri, filename, player, callback) {
-    request.head(uri, function (err, res, body) {
+var download = function (player) {
+    request.head("https://minotar.net/avatar/" + player + "/49.png", function (err, res, body) {
         console.log('content-type:', res.headers['content-type']);
         console.log('content-length:', res.headers['content-length']);
 
-        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback(player));
+        request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("./public/images/" + player + "_dl.png")).on('close', function () {
+            console.log("Renaming " + player);
+            fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
+        });
     });
 };
 
