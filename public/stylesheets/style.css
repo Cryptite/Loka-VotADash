@@ -12,7 +12,7 @@ body {
 
 .blueplayers {
     position: absolute;
-    right: 76px;
+    right: 72px;
     width: 560px;
     bottom: 0;
     /*background: rgba(0, 183, 255, 0.27);*/
@@ -25,7 +25,7 @@ body {
     overflow: hidden;
     /*border: 1px solid rgba(255, 33, 0, 1);*/
     padding-left: 4px;
-    padding-right: 8px;
+    padding-right: 10px;
 }
 
 .playername {

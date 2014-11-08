@@ -16,10 +16,10 @@ router.get('/', function (req, res) {
 });
 
 var grabAvatars = function (list) {
-    var stevePath = "../public/images/steve.png";
+    var stevePath = "./public/images/steve.png";
 
     for (var player in list) {
-        var avatarPath = "../public/images/" + player + ".png";
+        var avatarPath = "./public/images/" + player + ".png";
         if (fs.existsSync(avatarPath)
             && fs.statSync(avatarPath)["size"] > 0
             && fs.statSync(avatarPath)["size"] != fs.statSync(stevePath)["size"]) continue;
@@ -38,10 +38,10 @@ var download = function (player) {
         console.log('content-type:', res.headers['content-type']);
         console.log('content-length:', res.headers['content-length']);
 
-        request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("../public/images/" + player + "_dl.png")).on('close', function () {
-            if (fs.existsSync("../public/images/" + player + "_dl.png")) {
+        request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("./public/images/" + player + "_dl.png")).on('close', function () {
+            if (fs.existsSync("./public/images/" + player + "_dl.png")) {
                 console.log("Renaming " + player);
-                fs.rename("../public/images/" + player + "_dl.png", "../public/images/" + player + ".png");
+                fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
             }
         });
     });
