@@ -23,9 +23,8 @@ var grabAvatars = function (list) {
         fs.createReadStream('./public/images/steve.png').pipe(fs.createWriteStream('./public/images/' + p + ".png"));
 
         //Then download over it
-        download("https://minotar.net/avatar/" + p + "/49.png", "./public/images/" + p + ".png", function () {
-            console.log("downloaded avatar");
-        });
+        console.log("Trying to download avatar for " + p);
+        download("https://minotar.net/avatar/" + p + "/49.png", "./public/images/" + p + ".png");
     }
 }
 
