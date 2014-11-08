@@ -24,16 +24,19 @@ var grabAvatars = function (list) {
 
         //Then download over it
         console.log("Trying to download avatar for " + p);
-        download("https://minotar.net/avatar/" + p + "/49.png", "./public/images/" + p + ".png");
+        download("https://minotar.net/avatar/" + p + "/49.png", "./public/images/" + p + "_dl.png", p, function (player) {
+            console.log("Got avatar for " + player + ", renaming");
+            fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
+        });
     }
 }
 
-var download = function (uri, filename, callback) {
+var download = function (uri, filename, player, callback) {
     request.head(uri, function (err, res, body) {
         console.log('content-type:', res.headers['content-type']);
         console.log('content-length:', res.headers['content-length']);
 
-        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback(p));
     });
 };
 
