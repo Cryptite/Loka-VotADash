@@ -17,13 +17,13 @@ router.get('/', function (req, res) {
 
 var grabAvatars = function (list) {
     for (var p in list) {
-        if (fs.existsSync("../public/images/" + p + ".png")) continue;
+        if (fs.existsSync("./public/images/" + p + ".png")) continue;
 
         //Copy steve skin as player skin first
-        fs.createReadStream('../public/images/steve.png').pipe(fs.createWriteStream('../public/images/' + p + ".png"));
+        fs.createReadStream('./public/images/steve.png').pipe(fs.createWriteStream('./public/images/' + p + ".png"));
 
         //Then download over it
-        download("https://minotar.net/avatar/" + p + "/49.png", "../public/images/" + p + ".png", function () {
+        download("https://minotar.net/avatar/" + p + "/49.png", "./public/images/" + p + ".png", function () {
             console.log("downloaded avatar");
         });
     }
