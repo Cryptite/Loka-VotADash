@@ -7,19 +7,21 @@ var router = express.Router();
 router.get('/', function (req, res) {
     var db = req.db;
     var collection = db.get('stats');
-    collection.find({name: "game"}, function (e, docs) {
-        grabAvatars(docs[0].bluetopplayers);
-        grabAvatars(docs[0].redtopplayers);
 
-        res.render('index', {data: docs});
+    //Get game data
+    collection.find({name: "game"}, function (e, gameData) {
+        grabAvatars(gameData[0].bluetopplayers);
+        grabAvatars(gameData[0].redtopplayers);
+
+        res.render('index', {data: gameData});
     });
 });
 
 var grabAvatars = function (list) {
-    var stevePath = "./public/images/steve.png";
+    var stevePath = "../public/images/steve.png";
 
     for (var player in list) {
-        var avatarPath = "./public/images/" + player + ".png";
+        var avatarPath = "../public/images/" + player + ".png";
         if (fs.existsSync(avatarPath)
             && fs.statSync(avatarPath)["size"] > 0
             && fs.statSync(avatarPath)["size"] != fs.statSync(stevePath)["size"]) continue;
@@ -31,17 +33,17 @@ var grabAvatars = function (list) {
         console.log("Trying to download avatar for " + player);
         download(player);
     }
-}
+};
 
 var download = function (player) {
     request.head("https://minotar.net/avatar/" + player + "/49.png", function (err, res, body) {
         console.log('content-type:', res.headers['content-type']);
         console.log('content-length:', res.headers['content-length']);
 
-        request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("./public/images/" + player + "_dl.png")).on('close', function () {
-            if (fs.existsSync("./public/images/" + player + "_dl.png")) {
+        request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("../public/images/" + player + "_dl.png")).on('close', function () {
+            if (fs.existsSync("../public/images/" + player + "_dl.png")) {
                 console.log("Renaming " + player);
-                fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
+                fs.rename("../public/images/" + player + "_dl.png", "../public/images/" + player + ".png");
             }
         });
     });

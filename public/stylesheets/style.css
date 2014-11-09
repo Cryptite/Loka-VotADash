@@ -28,6 +28,20 @@ body {
     padding-right: 10px;
 }
 
+.talents {
+    display: block;
+    position: absolute;
+    text-align: center;
+    width: 30px;
+    top: 15px;
+    left: 57px;
+}
+
+.talent {
+    width: 20px;
+    height: 20px;
+}
+
 .playername {
     width: 70px;
     font-size: 9px;
