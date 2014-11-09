@@ -13,7 +13,8 @@ block content
                         img.avatar(src="./images/#{player}.png")
                         br
                         p.kdr= scores[0]
-                        div.talents
+                    div.talents
+                        div.talentscontainer
                             each score in scores
                                 if score == 27
                                     img.talent(src="./images/frosttrap.png")= score
@@ -46,7 +47,8 @@ block content
                         img.avatar(src="./images/#{player}.png")
                         br
                         p.kdr= scores[0]
-                        div.talents
+                    div.talents
+                        div.talentscontainer
                             each score in scores
                                 if score == 27
                                     img.talent(src="./images/frosttrap.png")= score
