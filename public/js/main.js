@@ -40,9 +40,8 @@ $(function () {
     setInterval(function () {
         $.get('/firstblood', function (data) {
             if (data != undefined && data != "") {
-                console.log("received firstblood " + data);
-                showFB(data, "First Blood BITCH!");
-                $('.firstblood').html(data);
+                console.log("received firstblood " + data.player);
+                showFB(data.player, data.message);
                 $.get("/gotfb", function () {
                 });
                 hideFB();

@@ -37,7 +37,7 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-var fbPlayer;
+var announceData;
 app.use("/data", function (req, res) {
     var db = req.db;
     var collection = db.get('stats');
@@ -48,14 +48,14 @@ app.use("/data", function (req, res) {
     });
 });
 app.use("/firstblood", function (req, res) {
-    res.send(fbPlayer);
+    res.send(announceData);
 });
 app.use("/setfb", function (req, res) {
-    fbPlayer = req.query.player;
-    console.log("fbp is " + fbPlayer);
+    announceData = req.query;
+    res.send("Wheee!");
 });
 app.use("/gotfb", function (req, res) {
-    fbPlayer = undefined;
+    announceData = undefined;
     console.log("got fbplayer, setting to null");
     res.send("Thanks");
 });
