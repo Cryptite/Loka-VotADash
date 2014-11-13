@@ -36,6 +36,30 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
+
+var fbPlayer;
+app.use("/data", function (req, res) {
+    var db = req.db;
+    var collection = db.get('stats');
+
+    //Get game data
+    collection.find({name: "game"}, function (e, gameData) {
+        res.send(gameData[0]);
+    });
+});
+app.use("/firstblood", function (req, res) {
+    res.send(fbPlayer);
+});
+app.use("/setfb", function (req, res) {
+    fbPlayer = req.query.player;
+    console.log("fbp is " + fbPlayer);
+});
+app.use("/gotfb", function (req, res) {
+    fbPlayer = undefined;
+    console.log("got fbplayer, setting to null");
+    res.send("Thanks");
+});
+
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

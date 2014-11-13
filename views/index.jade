@@ -73,8 +73,16 @@ block content
                                 else if score == 44
                                     img.talent(src="./images/freyjiasarrow.png")= score
     div.points
-        p(class="point point-#{data[0].point_lower}")= "lower"
+        p(class="lower point")= "lower"
         br
-        p(class="point point-#{data[0].point_middle}")= "middle"
+        p(class="middle point")= "middle"
         br
-        p(class="point point-#{data[0].point_hidden}")= "hidden"
+        p(class="hidden point")= "hidden"
+    div.announce
+        img.announceavatar(src="./images/steve.png")
+        p.announceplayer= "Cryptite"
+        br
+        p.announcemessage= "First Blood"
+
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    script(src="./js/main.js")
