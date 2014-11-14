@@ -47,10 +47,10 @@ app.use("/data", function (req, res) {
         res.send(gameData[0]);
     });
 });
-app.use("/firstblood", function (req, res) {
+app.use("/announcement", function (req, res) {
     res.send(announceData);
 });
-app.use("/setfb", function (req, res) {
+app.use("/announce", function (req, res) {
     announceData = req.query;
     res.send("Wheee!");
 });
@@ -58,6 +58,13 @@ app.use("/gotfb", function (req, res) {
     announceData = undefined;
     console.log("got fbplayer, setting to null");
     res.send("Thanks");
+});
+app.use("/statistics", function (req, res) {
+    var collection = req.db.get("players");
+
+    collection.find({name: req.query.player}, function (e, data) {
+        res.send(data[0]);
+    });
 });
 
 /// catch 404 and forwarding to error handler
