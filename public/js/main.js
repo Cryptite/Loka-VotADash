@@ -58,8 +58,6 @@ $(function () {
         announcement_player.html(player);
         announcement_message.html(message);
         announcement_avatar.attr('src', '/images/' + player + '.png');
-
-        getStats(player);
     }
 
     function hideFB() {
