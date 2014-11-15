@@ -22,27 +22,32 @@ $(function () {
             middle.attr('class', 'middle point point-' + data.point_middle);
             hidden.attr('class', 'hidden point point-' + data.point_hidden);
 
-//            getStats(data)
+            getStats(data)
         });
     }, 5000);
 
     function getStats(data) {
         var stats = $('.redstatsbody')
-        stats.html('');
-        for (var p in data.redtopplayers) {
-            $.get('/statistics', {player: p}, function (data) {
-                stats.append('<tr><th><img src="./images/' + data.name + '.png" class="statsavatar"/></th><th>' + data.name + '</th><th>' + getKDR(data) + '</th><th>' + getCPG(data) + '</th></tr>');
-            });
-        }
         var statsBlue = $('.bluestatsbody')
-        statsBlue.html('');
-        for (var p in data.bluetopplayers) {
-            $.get('/statistics', {player: p}, function (data) {
-                statsBlue.append('<tr><th><img src="./images/' + data.name + '.png" class="statsavatar"/></th><th>' + data.name + '</th><th>' + getKDR(data) + '</th><th>' + getCPG(data) + '</th></tr>');
-            });
-        }
-        $('.redstats').attr('class', 'redstats show');
-        $('.bluestats').attr('class', 'bluestats show');
+
+        $.get('/statistics', {data: data}, function (data) {
+            stats.html('');
+            statsBlue.html('');
+
+            console.log("data: " + data.blue[0].name)
+
+            for (var redPlayer in data.red) {
+                stats.append('<tr><th><img src="./images/' + redPlayer.name + '.png" class="statsavatar"/></th><th>' + redPlayer.name + '</th><th>' + getKDR(redPlayer) + '</th><th>' + getCPG(redPlayer) + '</th></tr>');
+            }
+
+            for (var bluePlayer in data.blue) {
+                statsBlue.append('<tr><th><img src="./images/' + bluePlayer.name + '.png" class="statsavatar"/></th><th>' + bluePlayer.name + '</th><th>' + getKDR(bluePlayer) + '</th><th>' + getCPG(bluePlayer) + '</th></tr>');
+            }
+
+            $('.redstats').attr('class', 'redstats show');
+            $('.bluestats').attr('class', 'bluestats show');
+        });
+
     }
 
     function getKDR(data) {

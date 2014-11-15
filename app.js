@@ -60,10 +60,29 @@ app.use("/gotfb", function (req, res) {
     res.send("Thanks");
 });
 app.use("/statistics", function (req, res) {
-    var collection = req.db.get("players");
+    var playerCollection = req.db.get("players");
+    var gameCollection = req.db.get("stats");
+    var query = [];
+    for (var redPlayer in req.query.data.redtopplayers) {
+        query.push({name: redPlayer});
+    }
+    for (var bluePlayer in req.query.data.bluetopplayers) {
+        query.push({name: bluePlayer});
+    }
 
-    collection.find({name: req.query.player}, function (e, data) {
-        res.send(data[0]);
+    playerCollection.find({$or: query}, function (e, data) {
+        bluePlayers = [];
+        redPlayers = [];
+        var requestData = req.query.data;
+
+        for (var i = 0; i < data.length; i++) {
+            if (requestData.hasOwnProperty("bluetopplayers") && requestData.bluetopplayers.hasOwnProperty(data[i].name)) {
+                bluePlayers.push(data[i]);
+            } else if (requestData.hasOwnProperty("redtopplayers") && requestData.redtopplayers.hasOwnProperty(data[i].name)) {
+                redPlayers.push(data[i]);
+            }
+        }
+        res.send({red: redPlayers, blue: bluePlayers});
     });
 });
 
