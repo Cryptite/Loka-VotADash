@@ -53,7 +53,6 @@ $(function () {
     }
 
     function showStats() {
-        var redHeight = $('.redstats').height();
         $('.redstats').css({
             "height": 25 + 'px',
             left: 20 + 'px'
@@ -62,11 +61,10 @@ $(function () {
             left: 130 + "px"
         }, 1000, 'easeOutQuart', function () {
             $('.redstats').velocity({
-                height: redHeight
+                height: 500 + 'px'
             }, 1500, 'easeOutQuart')
         });
 
-        var blueHeight = $('.bluestats').height();
         $('.bluestats').css({
             "height": 25 + 'px',
             right: 20 + 'px'
@@ -75,7 +73,7 @@ $(function () {
             right: 160 + "px"
         }, 1000, 'easeOutQuart', function () {
             $('.bluestats').velocity({
-                height: blueHeight
+                height: 500 + 'px'
             }, 1500, 'easeOutQuart')
         });
     }
