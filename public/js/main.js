@@ -89,7 +89,7 @@ $(function () {
     }
 
     function getScore(player) {
-        return valleyCurrentScore;
+        return player.valleyCurrentScore;
     }
 
     function getKDR(data) {
