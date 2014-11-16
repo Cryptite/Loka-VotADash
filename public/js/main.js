@@ -11,11 +11,15 @@ $(function () {
     var announcement_message = $('.announcemessage');
     var announcement_avatar = $('.announceavatar');
 
+    var bgData;
+
     setInterval(function () {
         $.get('/data', function (data) {
             //Handle scores
             redScore.html(data.redscore);
             blueScore.html(data.bluescore);
+
+            bgData = data;
 
             //Handle point control
             lower.attr('class', 'lower point point-' + data.point_lower);
@@ -36,18 +40,45 @@ $(function () {
 
             for (var i = 0; i < data.red.length; i++) {
                 var redPlayer = data.red[i];
-                stats.append('<tr><th><img src="./images/' + redPlayer.name + '.png" class="statsavatar"/></th><th>' + redPlayer.name + '</th><th>' + getKDR(redPlayer) + '</th><th>' + getCPG(redPlayer) + '</th></tr>');
+                stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer.name + '.png" class="statsavatar"/></th><th>' + redPlayer.name + '</th><th>' + getScore(redPlayer.name) + '</th><th>' + getKDR(redPlayer) + '</th><th>' + getCPG(redPlayer) + '</th></tr>');
             }
 
             for (var i = 0; i < data.blue.length; i++) {
                 var bluePlayer = data.blue[i];
-                statsBlue.append('<tr><th><img src="./images/' + bluePlayer.name + '.png" class="statsavatar"/></th><th>' + bluePlayer.name + '</th><th>' + getKDR(bluePlayer) + '</th><th>' + getCPG(bluePlayer) + '</th></tr>');
+                statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer.name + '.png" class="statsavatar"/></th><th>' + bluePlayer.name + '</th><th>' + getScore(bluePlayer.name) + '</th><th>' + getKDR(bluePlayer) + '</th><th>' + getCPG(bluePlayer) + '</th></tr>');
             }
 
-            $('.redstats').attr('class', 'redstats show');
-            $('.bluestats').attr('class', 'bluestats show');
-        });
+            var redHeight = $('.redstats').height();
+            $('.redstats').css({
+                "height": 30 + 'px'
+            }).velocity({
+                opacity: 1,
+                left: 190 + "px"
+            }, 1000, 'easeOutQuart', function () {
+                $('.redstats').velocity({
+                    height: redHeight
+                }, 1500, 'easeOutQuart')
+            });
 
+            var blueHeight = $('.bluestats').height();
+            $('.bluestats').css({
+                "height": 30 + 'px'
+            }).velocity({
+                opacity: 1,
+                right: 200 + "px"
+            }, 1000, 'easeOutQuart', function () {
+                $('.bluestats').velocity({
+                    height: blueHeight
+                }, 1500, 'easeOutQuart')
+            });
+        });
+    }
+
+    function getScore(player) {
+        console.log("getting data for " + player)
+        for (var i = 0; i < bgData.bluetopplayers.length; i++) {
+            console.log(bgData.bluetopplayers.player);
+        }
     }
 
     function getKDR(data) {
@@ -82,4 +113,5 @@ $(function () {
             }
         })
     }, 2500);
-});
+})
+;

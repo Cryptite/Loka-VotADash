@@ -173,28 +173,20 @@ p {
 
 .redstats {
     position: absolute;
-    left: 190px;
-    width: 300px;
+    left: -200px;
+    width: 475px;
     top: 200px;
     opacity: 0;
-
-    transition: all 500ms;
-    -webkit-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-    -o-transition: all 500ms ease-in-out;
+    overflow: hidden;
 }
 
 .bluestats {
     position: absolute;
-    right: 300px;
-    width: 300px;
+    right: -300px;
+    width: 475px;
     top: 200px;
     opacity: 0;
-
-    transition: all 500ms;
-    -webkit-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-    -o-transition: all 500ms ease-in-out;
+    overflow: hidden;
 }
 
 .statsavatar {
@@ -206,6 +198,10 @@ p {
 
 .show {
     opacity: 1;
+}
+
+.visible {
+    visibility: visible;
 }
 
 .hide {
