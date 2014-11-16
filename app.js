@@ -13,6 +13,7 @@ var fs = require('fs'),
 var db = monk('iron.minecraftarium.com:27017/loka');
 
 var routes = require('./routes/index');
+var dash = require('./routes/dash');
 var users = require('./routes/users');
 
 var app = express();
@@ -31,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Make our db accessible to our router
 app.use(function (req, res, next) {
-    if (req.method == "GET") {
+    if (req.method == "GET" && req.originalUrl.indexOf("/images") > -1) {
         //This is fucking insane. Intercept all image get requests and auto-grab the avatar if we need to. Holy Shit!
         var player = req.originalUrl.split("/")[2].split(".")[0];
 
@@ -73,10 +74,12 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', routes);
+app.use('/dash', dash);
 app.use('/users', users);
 
 
 var announceData;
+var statsState = "false";
 app.use("/data", function (req, res) {
     var db = req.db;
     var collection = db.get('stats');
@@ -85,6 +88,17 @@ app.use("/data", function (req, res) {
     collection.find({name: "game"}, function (e, gameData) {
         res.send(gameData[0]);
     });
+});
+app.use("/statstate", function (req, res) {
+    res.send(statsState);
+});
+app.use("/hidestats", function (req, res) {
+    statsState = "false";
+    res.send("hiding");
+});
+app.use("/showstats", function (req, res) {
+    statsState = "true";
+    res.send("showing");
 });
 app.use("/announcement", function (req, res) {
     res.send(announceData);

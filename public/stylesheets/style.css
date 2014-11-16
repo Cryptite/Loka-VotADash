@@ -173,7 +173,7 @@ p {
 
 .redstats {
     position: absolute;
-    left: -200px;
+    left: 20px;
     width: 475px;
     top: 200px;
     opacity: 0;
@@ -182,7 +182,7 @@ p {
 
 .bluestats {
     position: absolute;
-    right: -300px;
+    right: 20px;
     width: 475px;
     top: 200px;
     opacity: 0;
@@ -208,6 +208,10 @@ p {
     opacity: 0;
 }
 
+.statstate {
+    color: #000;
+}
+
 table {
     border-collapse: collapse;
     margin-bottom: 3em;
@@ -220,7 +224,7 @@ table {
 }
 
 td, th {
-    padding: .2em 1.5em;
+    padding: .2em .2em;
     text-align: left;
     font-size: 18px;
 }

@@ -13,6 +13,8 @@ $(function () {
 
     var bgData;
 
+    var statState = "false";
+
     setInterval(function () {
         $.get('/data', function (data) {
             //Handle scores
@@ -47,38 +49,49 @@ $(function () {
                 var bluePlayer = data.blue[i];
                 statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer.name + '.png" class="statsavatar"/></th><th>' + bluePlayer.name + '</th><th>' + getScore(bluePlayer.name) + '</th><th>' + getKDR(bluePlayer) + '</th><th>' + getCPG(bluePlayer) + '</th></tr>');
             }
-
-            var redHeight = $('.redstats').height();
-            $('.redstats').css({
-                "height": 30 + 'px'
-            }).velocity({
-                opacity: 1,
-                left: 190 + "px"
-            }, 1000, 'easeOutQuart', function () {
-                $('.redstats').velocity({
-                    height: redHeight
-                }, 1500, 'easeOutQuart')
-            });
-
-            var blueHeight = $('.bluestats').height();
-            $('.bluestats').css({
-                "height": 30 + 'px'
-            }).velocity({
-                opacity: 1,
-                right: 200 + "px"
-            }, 1000, 'easeOutQuart', function () {
-                $('.bluestats').velocity({
-                    height: blueHeight
-                }, 1500, 'easeOutQuart')
-            });
         });
     }
 
+    function showStats() {
+        var redHeight = $('.redstats').height();
+        $('.redstats').css({
+            "height": 25 + 'px',
+            left: 20 + 'px'
+        }).velocity({
+            opacity: 1,
+            left: 130 + "px"
+        }, 1000, 'easeOutQuart', function () {
+            $('.redstats').velocity({
+                height: redHeight
+            }, 1500, 'easeOutQuart')
+        });
+
+        var blueHeight = $('.bluestats').height();
+        $('.bluestats').css({
+            "height": 25 + 'px',
+            right: 20 + 'px'
+        }).velocity({
+            opacity: 1,
+            right: 160 + "px"
+        }, 1000, 'easeOutQuart', function () {
+            $('.bluestats').velocity({
+                height: blueHeight
+            }, 1500, 'easeOutQuart')
+        });
+    }
+
+    function hideStats() {
+        $('.redstats').velocity({
+            opacity: 0
+        }, 1000, 'easeOutQuart');
+
+        $('.bluestats').velocity({
+            opacity: 0
+        }, 1000, 'easeOutQuart');
+    }
+
     function getScore(player) {
-        console.log("getting data for " + player)
-        for (var i = 0; i < bgData.bluetopplayers.length; i++) {
-            console.log(bgData.bluetopplayers.player);
-        }
+        return valleyCurrentScore;
     }
 
     function getKDR(data) {
@@ -113,5 +126,17 @@ $(function () {
             }
         })
     }, 2500);
-})
-;
+
+    setInterval(function () {
+        $.get('/statstate', function (data) {
+            if (data != undefined && data != "") {
+                if (data == statState) return;
+
+                if (data == "true") showStats();
+                else hideStats();
+
+                statState = data;
+            }
+        })
+    }, 2500);
+});

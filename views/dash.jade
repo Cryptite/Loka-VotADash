@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    a(href="#" class="showstats")= "Show  "
+    br
+    a(href="#" class="hidestats")= "Hide"
+    br
+    p.statstate= "----"
+
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    script(src="./js/dash.js")
