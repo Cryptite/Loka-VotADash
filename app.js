@@ -35,8 +35,8 @@ app.use(function (req, res, next) {
         //This is fucking insane. Intercept all image get requests and auto-grab the avatar if we need to. Holy Shit!
         var player = req.originalUrl.split("/")[2].split(".")[0];
 
-        var avatarPath = "../public/images/" + player + ".png";
-        var stevePath = "../public/images/steve.png";
+        var avatarPath = "./public/images/" + player + ".png";
+        var stevePath = "./public/images/steve.png";
 
         if (fs.existsSync(avatarPath)
             && fs.statSync(avatarPath)["size"] > 0
@@ -57,10 +57,10 @@ app.use(function (req, res, next) {
             console.log('content-type:', requestResponse.headers['content-type']);
             console.log('content-length:', requestResponse.headers['content-length']);
 
-            request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("../public/images/" + player + "_dl.png")).on('close', function () {
-                if (fs.existsSync("../public/images/" + player + "_dl.png")) {
+            request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("./public/images/" + player + "_dl.png")).on('close', function () {
+                if (fs.existsSync("./public/images/" + player + "_dl.png")) {
                     console.log("Renaming " + player);
-                    fs.rename("../public/images/" + player + "_dl.png", "../public/images/" + player + ".png");
+                    fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
                     req.db = db;
                     next();
                 }
