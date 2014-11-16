@@ -34,13 +34,13 @@ $(function () {
             stats.html('');
             statsBlue.html('');
 
-            console.log("data: " + data.blue[0].name)
-
-            for (var redPlayer in data.red) {
+            for (var i = 0; i < data.red.length; i++) {
+                var redPlayer = data.red[i];
                 stats.append('<tr><th><img src="./images/' + redPlayer.name + '.png" class="statsavatar"/></th><th>' + redPlayer.name + '</th><th>' + getKDR(redPlayer) + '</th><th>' + getCPG(redPlayer) + '</th></tr>');
             }
 
-            for (var bluePlayer in data.blue) {
+            for (var i = 0; i < data.blue.length; i++) {
+                var bluePlayer = data.blue[i];
                 statsBlue.append('<tr><th><img src="./images/' + bluePlayer.name + '.png" class="statsavatar"/></th><th>' + bluePlayer.name + '</th><th>' + getKDR(bluePlayer) + '</th><th>' + getCPG(bluePlayer) + '</th></tr>');
             }
 
