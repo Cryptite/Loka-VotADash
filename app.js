@@ -89,55 +89,6 @@ app.use("/data", function (req, res) {
         res.send(gameData[0]);
     });
 });
-app.use("/statstate", function (req, res) {
-    res.send(statsState);
-});
-app.use("/hidestats", function (req, res) {
-    statsState = "false";
-    res.send("hiding");
-});
-app.use("/showstats", function (req, res) {
-    statsState = "true";
-    res.send("showing");
-});
-app.use("/announcement", function (req, res) {
-    res.send(announceData);
-});
-app.use("/announce", function (req, res) {
-    announceData = req.query;
-    res.send("Wheee!");
-});
-app.use("/gotfb", function (req, res) {
-    announceData = undefined;
-    console.log("got fbplayer, setting to null");
-    res.send("Thanks");
-});
-app.use("/statistics", function (req, res) {
-    var playerCollection = req.db.get("players");
-    var gameCollection = req.db.get("stats");
-    var query = [];
-    for (var redPlayer in req.query.data.redtopplayers) {
-        query.push({name: redPlayer});
-    }
-    for (var bluePlayer in req.query.data.bluetopplayers) {
-        query.push({name: bluePlayer});
-    }
-
-    playerCollection.find({$or: query}, function (e, data) {
-        bluePlayers = [];
-        redPlayers = [];
-        var requestData = req.query.data;
-
-        for (var i = 0; i < data.length; i++) {
-            if (requestData.hasOwnProperty("bluetopplayers") && requestData.bluetopplayers.hasOwnProperty(data[i].name)) {
-                bluePlayers.push(data[i]);
-            } else if (requestData.hasOwnProperty("redtopplayers") && requestData.redtopplayers.hasOwnProperty(data[i].name)) {
-                redPlayers.push(data[i]);
-            }
-        }
-        res.send({red: redPlayers, blue: bluePlayers});
-    });
-});
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
@@ -163,7 +114,6 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
-    console.log("llol");
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

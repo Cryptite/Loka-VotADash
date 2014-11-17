@@ -11,45 +11,22 @@ $(function () {
     var announcement_message = $('.announcemessage');
     var announcement_avatar = $('.announceavatar');
 
-    var bgData;
-
-    var statState = "false";
-
-    setInterval(function () {
-        $.get('/data', function (data) {
-            //Handle scores
-            redScore.html(data.redscore);
-            blueScore.html(data.bluescore);
-
-            bgData = data;
-
-            //Handle point control
-            lower.attr('class', 'lower point point-' + data.point_lower);
-            middle.attr('class', 'middle point point-' + data.point_middle);
-            hidden.attr('class', 'hidden point point-' + data.point_hidden);
-
-            getStats(data)
-        });
-    }, 5000);
-
-    function getStats(data) {
+    function updateStats(data) {
         var stats = $('.redstatsbody')
         var statsBlue = $('.bluestatsbody')
 
-        $.get('/statistics', {data: data}, function (data) {
-            stats.html('');
-            statsBlue.html('');
+        stats.html('');
+        statsBlue.html('');
 
-            for (var i = 0; i < data.red.length; i++) {
-                var redPlayer = data.red[i];
-                stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer.name + '.png" class="statsavatar"/></th><th>' + redPlayer.name + '</th><th>' + getScore(redPlayer.name) + '</th><th>' + getKDR(redPlayer) + '</th><th>' + getCPG(redPlayer) + '</th></tr>');
-            }
+        for (var red = 0; red < data['red'].length; red++) {
+            var redPlayer = data.red[red];
+            stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer['name'] + '.png" class="statsavatar"/></th><th>' + redPlayer['name'] + '</th><th>' + redPlayer['score'] + '</th><th>' + redPlayer['kdr'] + '</th><th>' + redPlayer['cpg'] + '</th></tr>');
+        }
 
-            for (var i = 0; i < data.blue.length; i++) {
-                var bluePlayer = data.blue[i];
-                statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer.name + '.png" class="statsavatar"/></th><th>' + bluePlayer.name + '</th><th>' + getScore(bluePlayer.name) + '</th><th>' + getKDR(bluePlayer) + '</th><th>' + getCPG(bluePlayer) + '</th></tr>');
-            }
-        });
+        for (var blue = 0; blue < data['blue'].length; blue++) {
+            var bluePlayer = data.blue[blue];
+            statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer['name'] + '.png" class="statsavatar"/></th><th>' + bluePlayer['name'] + '</th><th>' + bluePlayer['score'] + '</th><th>' + bluePlayer['kdr'] + '</th><th>' + bluePlayer['cpg'] + '</th></tr>');
+        }
     }
 
     function showStats() {
@@ -88,23 +65,13 @@ $(function () {
         }, 1000, 'easeOutQuart');
     }
 
-    function getScore(player) {
-        return player.valleyCurrentScore;
-    }
-
-    function getKDR(data) {
-        return (data.valleyKills / data.valleyDeaths).toFixed(2);
-    }
-
-    function getCPG(data) {
-        return (data.valleyCaps / (data.valleyWins + data.valleyLosses)).toFixed(1);
-    }
-
     function showFB(player, message) {
+        announcement.attr('class', 'announce hide');
         announcement.attr('class', 'announce show');
         announcement_player.html(player);
         announcement_message.html(message);
         announcement_avatar.attr('src', '/images/' + player + '.png');
+        hideFB();
     }
 
     function hideFB() {
@@ -113,28 +80,29 @@ $(function () {
         }, 5000);
     }
 
-    setInterval(function () {
-        $.get('/announcement', function (data) {
-            if (data != undefined && data != "") {
-                console.log("received firstblood " + data.player);
-                showFB(data.player, data.message);
-                $.get("/gotfb", function () {
-                });
-                hideFB();
-            }
-        })
-    }, 2500);
+    //SOCKET SHIT
+    var socket = io.connect('http://localhost:3001');
 
-    setInterval(function () {
-        $.get('/statstate', function (data) {
-            if (data != undefined && data != "") {
-                if (data == statState) return;
+    socket.on('announce', function (data) {
+        showFB(data['player'], data['message']);
+    });
 
-                if (data == "true") showStats();
-                else hideStats();
+    socket.on('scores', function (data) {
+        redScore.html(data["red"]);
+        blueScore.html(data["blue"]);
+    });
 
-                statState = data;
-            }
-        })
-    }, 2500);
+    socket.on('stats', function (data) {
+        updateStats(data);
+    });
+
+    socket.on('artifact', function (data) {
+        if (data["artifact"] == "lower") {
+            lower.attr('class', 'lower point point-' + data["team"]);
+        } else if (data["artifact"] == "middle") {
+            middle.attr('class', 'middle point point-' + data["team"]);
+        } else if (data["artifact"] == "hidden") {
+            hidden.attr('class', 'hidden point point-' + data["team"]);
+        }
+    });
 });
