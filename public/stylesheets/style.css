@@ -4,18 +4,29 @@ body {
 
 .redplayers {
     position: absolute;
-    left: 358px;
-    width: 560px;
+    left: 30%;
+    /*width: 560px;*/
     bottom: 0;
-    /*background: rgba(0, 183, 255, 0.27);*/
+    background: rgba(255, 49, 27, 0.68);
+    border-radius: 5px;
+
+    transition: all 500ms;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
 }
 
 .blueplayers {
     position: absolute;
-    right: 72px;
-    width: 560px;
+    right: 30%;
+    /*width: 560px;*/
     bottom: 0;
-    /*background: rgba(0, 183, 255, 0.27);*/
+    background: rgba(0, 183, 255, 0.73);
+
+    transition: all 500ms;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
 }
 
 .announce {
@@ -70,6 +81,7 @@ body {
     text-align: center;
     width: 80px;
     overflow: hidden;
+    opacity: 0;
     /*border: 1px solid rgba(255, 33, 0, 1);*/
     padding-left: 4px;
     padding-right: 10px;
@@ -108,7 +120,7 @@ body {
     float: left;
 }
 
-.kdr {
+.playerscore {
     font-size: 13px;
     text-align: center;
     float: left;
