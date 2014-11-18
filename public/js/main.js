@@ -18,15 +18,22 @@ $(function () {
         stats.html('');
         statsBlue.html('');
 
-        for (var red = 0; red < data['red'].length; red++) {
+        for (var k in data.red) {
+            console.log(data.red[k]['score']);
+        }
+
+        for (var red in data.red) {
             var redPlayer = data.red[red];
+            console.log("redPlayer: " + redPlayer);
             stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer['name'] + '.png" class="statsavatar"/></th><th>' + redPlayer['name'] + '</th><th>' + redPlayer['score'] + '</th><th>' + redPlayer['kdr'] + '</th><th>' + redPlayer['cpg'] + '</th></tr>');
         }
 
-        for (var blue = 0; blue < data['blue'].length; blue++) {
+        for (var blue in data.blue) {
             var bluePlayer = data.blue[blue];
             statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer['name'] + '.png" class="statsavatar"/></th><th>' + bluePlayer['name'] + '</th><th>' + bluePlayer['score'] + '</th><th>' + bluePlayer['kdr'] + '</th><th>' + bluePlayer['cpg'] + '</th></tr>');
         }
+
+        showStats();
     }
 
     function showStats() {
