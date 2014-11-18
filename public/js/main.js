@@ -88,7 +88,7 @@ $(function () {
     }
 
     //SOCKET SHIT
-    var socket = io.connect('http://localhost:3001');
+    var socket = io.connect('http://loka.minecraftarium.com:3001');
 
     socket.on('announce', function (data) {
         showFB(data['player'], data['message']);
