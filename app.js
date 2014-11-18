@@ -77,19 +77,6 @@ app.use('/', routes);
 app.use('/dash', dash);
 app.use('/users', users);
 
-
-var announceData;
-var statsState = "false";
-app.use("/data", function (req, res) {
-    var db = req.db;
-    var collection = db.get('stats');
-
-    //Get game data
-    collection.find({name: "game"}, function (e, gameData) {
-        res.send(gameData[0]);
-    });
-});
-
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

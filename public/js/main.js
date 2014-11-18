@@ -14,6 +14,9 @@ $(function () {
     var redContainer = $('.redplayers');
     var blueContainer = $('.blueplayers');
 
+    /* Socket Work */
+    var socket = io.connect('http://localhost:3001');
+
     /*Statistics Handling*/
     function updateStats(data) {
         var stats = $('.redstatsbody')
@@ -140,26 +143,25 @@ $(function () {
 
     //test player join
     setTimeout(function () {
-        addPlayer("red", {name: "Cryptite", score: 150, talents: [12, 24, 13]});
+        addPlayer("red", {name: "adderman500", score: 150, talents: [12, 24, 13]});
         addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
         updateContainerPosition("red");
 
-        addPlayer("blue", {name: "13lackpearl", score: 150, talents: [12, 24, 13]});
-        addPlayer("blue", {name: "erodster", score: 150, talents: [12, 24, 13]});
+        addPlayer("blue", {name: "mopb3", score: 150, talents: [12, 24, 13]});
+        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
         updateContainerPosition("blue");
     }, 6000);
 
     function addPlayer(team, player) {
+        socket.emit("avatar", player['name']);
+
         if (team == "red") {
             var redHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
-                + '</p><br/><p class="playername">Hylian_Moonwell</p><br><img src="./images/' + player['name']
-                + '.png" class="avatar"><br></div>';
+                + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><br></div>';
             redContainer.append(redHTML);
         } else {
-
-            var blueHTML = '<div class="player ' + player['name'] + '"><p class="playername">'
-                + player['name'] + '</p><br><img src="./images/' + player['name']
-                + '.png" class="avatar"><br><p class="playerscore">' + player['score'] + '</p></div>';
+            var blueHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
+                + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><br></div>';
             blueContainer.append(blueHTML);
         }
 
@@ -205,9 +207,6 @@ $(function () {
         player.find('.playerscore').html(data['score']);
     }
 
-    /* Socket Work */
-    var socket = io.connect('http://loka.minecraftarium.com:3001');
-
     socket.on('announce', function (data) {
         showFB(data['player'], data['message']);
     });
@@ -229,5 +228,35 @@ $(function () {
         } else if (data["artifact"] == "hidden") {
             hidden.attr('class', 'hidden point point-' + data["team"]);
         }
+    });
+
+    socket.on('update_avatar', function (data) {
+        var player = $('.' + data.name);
+        player.find(".avatar").attr('src', data.path);
+    });
+
+    //TEST player death
+    setTimeout(function () {
+        var player = $('.Cryptite').find(".avatar");
+        player.velocity({
+            width: 30 + 'px',
+            height: 30 + 'px'
+        }, 500, function () {
+            player.velocity({
+                width: 49 + 'px',
+                height: 49 + 'px'
+            }, 1000);
+        });
+    }, 4000);
+
+    socket.on('killed', function (data) {
+        var player = $('.' + data.name).find(".avatar");
+        player.velocity({
+            width: 80 + '%'
+        }, 500, function () {
+            player.velocity({
+                width: 100 + '%'
+            }, 1000);
+        });
     });
 });
