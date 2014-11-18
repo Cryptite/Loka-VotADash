@@ -139,21 +139,21 @@ $(function () {
     }
 
     //test player join
-//    setTimeout(function () {
-//        addPlayer("red", {name: "Cryptite", score: 150, talents: [12, 24, 13]});
-//        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
-//        updateContainerPosition("red");
-//
-//        addPlayer("blue", {name: "13lackpearl", score: 150, talents: [12, 24, 13]});
-//        addPlayer("blue", {name: "erodster", score: 150, talents: [12, 24, 13]});
-//        updateContainerPosition("blue");
-//    }, 6000);
+    setTimeout(function () {
+        addPlayer("red", {name: "Cryptite", score: 150, talents: [12, 24, 13]});
+        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
+        updateContainerPosition("red");
+
+        addPlayer("blue", {name: "13lackpearl", score: 150, talents: [12, 24, 13]});
+        addPlayer("blue", {name: "erodster", score: 150, talents: [12, 24, 13]});
+        updateContainerPosition("blue");
+    }, 6000);
 
     function addPlayer(team, player) {
         if (team == "red") {
-            var redHTML = '<div class="player ' + player['name'] + '"><p class="playername">'
-                + player['name'] + '</p><br><img src="./images/' + player['name']
-                + '.png" class="avatar"><br><p class="playerscore">' + player['score'] + '</p></div>';
+            var redHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
+                + '</p><br/><p class="playername">Hylian_Moonwell</p><br><img src="./images/' + player['name']
+                + '.png" class="avatar"><br></div>';
             redContainer.append(redHTML);
         } else {
 
