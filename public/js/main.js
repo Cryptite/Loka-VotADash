@@ -16,6 +16,7 @@ $(function () {
 
     /* Socket Work */
     var socket = io.connect('http://localhost:3001');
+    socket.emit("get_players", "-");
 
     /*Statistics Handling*/
     function updateStats(data) {
@@ -93,16 +94,16 @@ $(function () {
     //TEST populating players
     redContainer.html('');
 
-    setTimeout(function () {
-        populatePlayers({
-            red: {
-                0: {name: "Cryptite", score: 150, talents: [12, 24, 13]}},
-//                1: {name: "Magpieman", score: 100, "talents": [1, 2, 3]}},
-            blue: {
-                0: {name: "Cryptite", score: 150, talents: [12, 24, 13]}}
-//                1: {name: "Magpieman", score: 100, "talents": [1, 2, 3]}}
-        });
-    }, 1000);
+//    setTimeout(function () {
+//        populatePlayers({
+//            red: {
+//                0: {name: "Cryptite", score: 150, talents: [12, 24, 13]}},
+////                1: {name: "Magpieman", score: 100, "talents": [1, 2, 3]}},
+//            blue: {
+//                0: {name: "Cryptite", score: 150, talents: [12, 24, 13]}}
+////                1: {name: "Magpieman", score: 100, "talents": [1, 2, 3]}}
+//        });
+//    }, 1000);
 
     /* Populate players */
     function populatePlayers(data) {
@@ -141,16 +142,19 @@ $(function () {
         updateContainerPosition("blue", false);
     }
 
-    //test player join
-    setTimeout(function () {
-        addPlayer("red", {name: "adderman500", score: 150, talents: [12, 24, 13]});
-        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
-        updateContainerPosition("red");
-
-        addPlayer("blue", {name: "mopb3", score: 150, talents: [12, 24, 13]});
-        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
-        updateContainerPosition("blue");
-    }, 6000);
+//    setTimeout(function () {
+//        addPlayer("red", {name: "adderman500", score: 150, talents: [12, 24, 13]});
+//        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
+//        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
+////        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
+//        updateContainerPosition("red");
+//
+//        addPlayer("blue", {name: "mopb3", score: 150, talents: [12, 24, 13]});
+//        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
+//        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
+////        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
+//        updateContainerPosition("blue");
+//    }, 6000);
 
     function addPlayer(team, player) {
         socket.emit("avatar", player['name']);
@@ -173,34 +177,44 @@ $(function () {
             delay: 500});
     }
 
+    function removePlayer(player) {
+        var playerDiv = $('.' + player['name']);
+//        console.log("length is " + playerDiv.length);
+//        if (playerDiv.length > 1) {
+//            playerDiv = playerDiv[0];
+//        }
+//        var parentDiv = playerDiv.parentNode;
+        playerDiv.velocity({
+            opacity: 0
+        }, {
+            duration: 500,
+            easing: 'easeOutQuart',
+            complete: function (e) {
+                if (player['team'] == "red") {
+                    redContainer.removeChild(playerDiv);
+                } else {
+                    blueContainer.removeChild(playerDiv);
+                }
+            }});
+    }
+
     function updateContainerPosition(team, animated) {
         if (team == "red") {
             var count = redContainer[0].childNodes.length;
-
-            var newPos = 10 + (5 * count) + "%";
-            redContainer.css('left', newPos);
-
-//            if (animated) {
-//                redContainer.velocity({
-//                    left: newPos
-//                }, 500);
-//            } else {
-//                redContainer.css('left', newPos);
-//            }
+            redContainer.css('left', getTeamPos(count));
         } else {
             var blueCount = redContainer[0].childNodes.length;
-
-            blueContainer.velocity({
-                right: 10 + (5 * blueCount) + '%'
-            }, 500);
+            blueContainer.css('right', getTeamPos(blueCount));
         }
     }
 
-
-    //TEST updating player score
-    setTimeout(function () {
-        updatePlayerScore({name: "Cryptite", score: 200, "talents": [12, 24, 13]});
-    }, 4000);
+    function getTeamPos(numPlayers) {
+        if (numPlayers <= 1) return 40 + '%';
+        else if (numPlayers > 5) return 20 + '%';
+        else {
+            return 40 - (numPlayers * 6) + '%';
+        }
+    }
 
     function updatePlayerScore(data) {
         var player = $('.' + data['name']);
@@ -211,13 +225,25 @@ $(function () {
         showFB(data['player'], data['message']);
     });
 
+    socket.on('playerscore', function (data) {
+        updatePlayerScore(data);
+    });
+
+    socket.on('joinplayer', function (data) {
+        addPlayer(data['team'], data);
+    });
+
+    socket.on('leaveplayer', function (data) {
+        removePlayer(data);
+    });
+
     socket.on('scores', function (data) {
         redScore.html(data["red"]);
         blueScore.html(data["blue"]);
     });
 
-    socket.on('stats', function (data) {
-        updateStats(data);
+    socket.on('players', function (data) {
+        populatePlayers(data);
     });
 
     socket.on('artifact', function (data) {
@@ -235,28 +261,17 @@ $(function () {
         player.find(".avatar").attr('src', data.path);
     });
 
-    //TEST player death
-    setTimeout(function () {
-        var player = $('.Cryptite').find(".avatar");
-        player.velocity({
-            width: 30 + 'px',
-            height: 30 + 'px'
-        }, 500, function () {
-            player.velocity({
-                width: 49 + 'px',
-                height: 49 + 'px'
-            }, 1000);
-        });
-    }, 4000);
-
     socket.on('killed', function (data) {
-        var player = $('.' + data.name).find(".avatar");
+        var player = $('.' + data['name']).find(".avatar");
         player.velocity({
-            width: 80 + '%'
+            opacity: .25
         }, 500, function () {
             player.velocity({
-                width: 100 + '%'
-            }, 1000);
+                opacity: 1
+            }, {
+                duration: 1000,
+                delay: 10000
+            });
         });
     });
 });

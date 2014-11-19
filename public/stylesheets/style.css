@@ -9,6 +9,7 @@ body {
     bottom: 0;
     background: #df4f2d;
     border-radius: 5px;
+    padding: 5px;
 
     transition: all 500ms;
     -webkit-transition: all 500ms ease-in-out;
@@ -22,6 +23,8 @@ body {
     /*width: 560px;*/
     bottom: 0;
     background: #5f90b0;
+    border-radius: 5px;
+    padding: 5px;
 
     transition: all 500ms;
     -webkit-transition: all 500ms ease-in-out;
@@ -79,7 +82,7 @@ body {
 .player {
     display: inline-block;
     text-align: center;
-    width: 80px;
+    width: 60px;
     overflow: hidden;
     opacity: 0;
     /*border: 1px solid rgba(255, 33, 0, 1);*/

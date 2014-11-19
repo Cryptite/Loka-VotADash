@@ -24,14 +24,29 @@ io.sockets.on('connection', function (socket) {
     socket.on('scores', function (message) {
         socket.broadcast.emit('scores', message);
     });
-    socket.on('stats', function (message) {
-        socket.broadcast.emit('stats', message);
+    socket.on('players', function (message) {
+        socket.broadcast.emit('players', message);
+    });
+    socket.on('joinplayer', function (message) {
+        socket.broadcast.emit('joinplayer', message);
+    });
+    socket.on('killed', function (message) {
+        socket.broadcast.emit('killed', message);
+    });
+    socket.on('playerscore', function (message) {
+        socket.broadcast.emit('playerscore', message);
+    });
+    socket.on('leaveplayer', function (message) {
+        socket.broadcast.emit('leaveplayer', message);
     });
     socket.on('artifact', function (message) {
         socket.broadcast.emit('artifact', message);
     });
     socket.on('avatar', function (message) {
         getAvatar(socket, message);
+    });
+    socket.on('get_players', function (message) {
+        socket.broadcast.emit('get_players', '-');
     });
 });
 
