@@ -237,6 +237,17 @@ p {
     top: 200px;
     opacity: 0;
     overflow: hidden;
+    border-radius: 5px;
+    padding: 10px;
+
+    background: rgba(236, 79, 70, 1);
+    background: -moz-linear-gradient(top, rgba(236, 79, 70, 1) 0%, rgba(231, 49, 29, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(236, 79, 70, 1)), color-stop(100%, rgba(231, 49, 29, 1)));
+    background: -webkit-linear-gradient(top, rgba(236, 79, 70, 1) 0%, rgba(231, 49, 29, 1) 100%);
+    background: -o-linear-gradient(top, rgba(236, 79, 70, 1) 0%, rgba(231, 49, 29, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(236, 79, 70, 1) 0%, rgba(231, 49, 29, 1) 100%);
+    background: linear-gradient(to bottom, rgba(236, 79, 70, 1) 0%, rgba(231, 49, 29, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ec4f46', endColorstr='#e7311d', GradientType=0);
 }
 
 .bluestats {
@@ -246,6 +257,17 @@ p {
     top: 200px;
     opacity: 0;
     overflow: hidden;
+    border-radius: 5px;
+    padding: 10px;
+
+    background: rgba(73, 155, 234, 1);
+    background: -moz-linear-gradient(top, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(73, 155, 234, 1)), color-stop(100%, rgba(32, 124, 229, 1)));
+    background: -webkit-linear-gradient(top, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+    background: -o-linear-gradient(top, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+    background: linear-gradient(to bottom, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#499bea', endColorstr='#207ce5', GradientType=0);
 }
 
 .statsavatar {
@@ -275,7 +297,7 @@ table {
     border-collapse: collapse;
     margin-bottom: 3em;
     width: 100%;
-    background: #fff;
+    /*background: #fff;*/
 
     border-radius: 5px;
     border-top: 2px solid #c5c6c1;
@@ -289,7 +311,7 @@ td, th {
 }
 
 td.err {
-    background-color: #e992b9;
+    /*background-color: #e992b9;*/
     color: #fff;
     font-size: 0.75em;
     text-align: center;
@@ -297,28 +319,26 @@ td.err {
 }
 
 .redstats th {
-    background-color: rgba(196, 35, 36, 1);
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
 }
 
 .bluestats th {
-    background-color: rgba(65, 131, 196, 1);
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
 }
 
-tbody th {
-    background-color: #4183C4;
-}
+/*tbody th {*/
+/*background-color: #4183C4;*/
+/*}*/
 
 tbody tr:nth-child(2n-1) {
-    background-color: #f5f5f5;
+    /*background-color: #f5f5f5;*/
     transition: all .125s ease-in-out;
 }
 
 tbody tr:hover {
-    background-color: rgba(129, 208, 177, .3);
+    /*background-color: rgba(129, 208, 177, .3);*/
 }

@@ -20,15 +20,14 @@ $(function () {
 
     /*Statistics Handling*/
     function updateStats(data) {
-        var stats = $('.redstatsbody')
-        var statsBlue = $('.bluestatsbody')
+        var stats = $('.redstatsbody');
+        var statsBlue = $('.bluestatsbody');
 
         stats.html('');
         statsBlue.html('');
 
         for (var red in data.red) {
             var redPlayer = data.red[red];
-            console.log("redPlayer: " + redPlayer);
             stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer['name'] + '.png" class="statsavatar"/></th><th>' + redPlayer['name'] + '</th><th>' + redPlayer['score'] + '</th><th>' + redPlayer['kdr'] + '</th><th>' + redPlayer['cpg'] + '</th></tr>');
         }
 
@@ -42,26 +41,26 @@ $(function () {
 
     function showStats() {
         $('.redstats').css({
-            "height": 25 + 'px',
+            "height": 35 + 'px',
             left: 20 + 'px'
         }).velocity({
             opacity: 1,
             left: 130 + "px"
         }, 1000, 'easeOutQuart', function () {
             $('.redstats').velocity({
-                height: 500 + 'px'
+                height: 200 + 'px'
             }, 1500, 'easeOutQuart')
         });
 
         $('.bluestats').css({
-            "height": 25 + 'px',
+            "height": 35 + 'px',
             right: 20 + 'px'
         }).velocity({
             opacity: 1,
             right: 160 + "px"
         }, 1000, 'easeOutQuart', function () {
             $('.bluestats').velocity({
-                height: 500 + 'px'
+                height: 200 + 'px'
             }, 1500, 'easeOutQuart')
         });
     }
@@ -97,16 +96,18 @@ $(function () {
     //TEST populating players
     redContainer.html('');
 
-//    setTimeout(function () {
-//        populatePlayers({
-//            red: {
-//                0: {name: "Cryptite", score: 150, talents: [12, 24, 13]}},
-////                1: {name: "Magpieman", score: 100, "talents": [1, 2, 3]}},
-//            blue: {
-//                0: {name: "Cryptite", score: 150, talents: [12, 24, 13]}}
-////                1: {name: "Magpieman", score: 100, "talents": [1, 2, 3]}}
-//        });
-//    }, 1000);
+    setTimeout(function () {
+        updateStats({
+            red: {
+                0: {name: "Leasaur", score: 150, kdr: 1.5, cpg: 5.2},
+                1: {name: "godemox", score: 150, kdr: 1.5, cpg: 5.2},
+                2: {name: "computern", score: 150, kdr: 1.5, cpg: 5.2}},
+            blue: {
+                0: {name: "Defgnww", score: 150, kdr: 1.7, cpg: 6.2},
+                1: {name: "mopb3", score: 150, kdr: 1.5, cpg: 5.2},
+                2: {name: "MasterTargaryen", score: 150, kdr: 1.5, cpg: 5.2}}
+        });
+    }, 1000);
 
     /* Populate players */
     function populatePlayers(data) {
@@ -127,7 +128,7 @@ $(function () {
                 delay: counter});
         }
 
-        updateContainerPosition("red", false);
+        updateContainerPosition("red");
 
         for (var blue in data.blue) {
             var bluePlayer = data.blue[blue];
@@ -142,22 +143,22 @@ $(function () {
                 delay: counter});
         }
 
-        updateContainerPosition("blue", false);
+        updateContainerPosition("blue");
     }
 
-//    setTimeout(function () {
-//        addPlayer("red", {name: "adderman500", score: 150, talents: [12, 24, 13]});
+    setTimeout(function () {
+        addPlayer("red", {name: "Defgnww", score: 150, talents: [12, 24, 13]});
+        addPlayer("red", {name: "MasterTargaryen", score: 150, talents: [12, 24, 13]});
+        addPlayer("red", {name: "mopb3", score: 150, talents: [12, 24, 13]});
 //        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
-//        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
-////        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
-//        updateContainerPosition("red");
-//
-//        addPlayer("blue", {name: "mopb3", score: 150, talents: [12, 24, 13]});
+        updateContainerPosition("red");
+
+        addPlayer("blue", {name: "godemox", score: 150, talents: [12, 24, 13]});
+        addPlayer("blue", {name: "computern", score: 150, talents: [12, 24, 13]});
+        addPlayer("blue", {name: "Leasaur", score: 150, talents: [12, 24, 13]});
 //        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
-//        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
-////        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
-//        updateContainerPosition("blue");
-//    }, 6000);
+        updateContainerPosition("blue");
+    }, 6000);
 
     function addPlayer(team, player) {
         socket.emit("avatar", player['name']);
@@ -169,6 +170,10 @@ $(function () {
         } else {
             var blueHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
                 + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><br></div>';
+            for (var talent in player['talents']) {
+                console.log("Talents for " + player['name'] + ": " + ok[0]);
+            }
+            //</div>';
             blueContainer.append(blueHTML);
         }
 
@@ -192,7 +197,7 @@ $(function () {
         }, {
             duration: 500,
             easing: 'easeOutQuart',
-            complete: function (e) {
+            complete: function () {
                 if (player['team'] == "red") {
                     redContainer.removeChild(playerDiv);
                 } else {
@@ -201,7 +206,7 @@ $(function () {
             }});
     }
 
-    function updateContainerPosition(team, animated) {
+    function updateContainerPosition(team) {
         if (team == "red") {
             var count = redContainer[0].childNodes.length;
             redContainer.css('left', getTeamPos(count));
@@ -223,22 +228,6 @@ $(function () {
         var player = $('.' + data['name']);
         player.find('.playerscore').html(data['score']);
     }
-
-    setTimeout(function () {
-        showFB('Cryptite', 'First Blood!');
-    }, 2000);
-
-    setTimeout(function () {
-        showFB('Cryptite', 'Double Kill!');
-    }, 4000);
-
-    setTimeout(function () {
-        showFB('13lackpearl', 'Penta Kill!');
-    }, 6000);
-
-    setTimeout(function () {
-        showFB('Magpieman', 'Double Kill!');
-    }, 15000);
 
     socket.on('announce', function (data) {
         showFB(data['player'], data['message']);
@@ -276,6 +265,7 @@ $(function () {
     });
 
     socket.on('update_avatar', function (data) {
+        console.log("Updating avatar for " + data.name);
         var player = $('.' + data.name);
         player.find(".avatar").attr('src', data.path);
     });

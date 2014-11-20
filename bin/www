@@ -9,6 +9,8 @@ var mongojs = require('mongojs');
 var uri = "mongodb://iron.minecraftarium.com:27017/loka";
 var db = mongojs.connect(uri, ["stats"]);
 
+var imagesPath = "../public/images/";
+
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function () {
@@ -51,9 +53,9 @@ io.sockets.on('connection', function (socket) {
 });
 
 var getAvatar = function (socket, player) {
-    var stevePath = "./public/images/steve.png";
+    var stevePath = imagesPath + "steve.png";
 
-    var avatarPath = "./public/images/" + player + ".png";
+    var avatarPath = imagesPath + player + ".png";
     if (fs.existsSync(avatarPath)
         && fs.statSync(avatarPath)["size"] > 0
         && fs.statSync(avatarPath)["size"] != fs.statSync(stevePath)["size"]) {
@@ -70,11 +72,11 @@ var getAvatar = function (socket, player) {
 };
 
 var download = function (socket, player) {
-    request.head("https://minotar.net/avatar/" + player + "/49.png", function (err, res, body) {
-        request("https://minotar.net/avatar/" + player + "/49.png").pipe(fs.createWriteStream("./public/images/" + player + "_dl.png")).on('close', function () {
-            if (fs.existsSync("./public/images/" + player + "_dl.png")) {
+    request.head("https://minotar.net/avatar/" + player + "/150.png", function (err, res, body) {
+        request("https://minotar.net/avatar/" + player + "/150.png").pipe(fs.createWriteStream(imagesPath + player + "_dl.png")).on('close', function () {
+            if (fs.existsSync(imagesPath + player + "_dl.png")) {
                 console.log("Renaming " + player);
-                fs.rename("./public/images/" + player + "_dl.png", "./public/images/" + player + ".png");
+                fs.rename(imagesPath + player + "_dl.png", imagesPath + player + ".png");
                 socket.emit("update_avatar", {name: player, path: "./images/" + player + ".png"});
             }
         });
