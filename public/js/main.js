@@ -15,7 +15,7 @@ $(function () {
     var blueContainer = $('.blueplayers');
 
     /* Socket Work */
-    var socket = io.connect('http://loka.minecraftarium.com:3001');
+    var socket = io.connect('http://localhost:3001');
     socket.emit("get_players", "-");
 
     /*Statistics Handling*/
@@ -77,18 +77,21 @@ $(function () {
     }
 
     function showFB(player, message) {
-        announcement.attr('class', 'announce hide');
-        announcement.attr('class', 'announce show');
+        announcement.velocity("stop");
         announcement_player.html(player);
         announcement_message.html(message);
         announcement_avatar.attr('src', '/images/' + player + '.png');
-        hideFB();
-    }
-
-    function hideFB() {
-        setTimeout(function () {
-            announcement.attr('class', 'announce hide');
-        }, 5000);
+        announcement.velocity({
+            opacity: [1, 0],
+            scale: [1, 1.5]
+        }, 500, function () {
+            announcement.velocity({
+                opacity: 0
+            }, {
+                duration: 1000,
+                delay: 5000
+            })
+        });
     }
 
     //TEST populating players
@@ -220,6 +223,22 @@ $(function () {
         var player = $('.' + data['name']);
         player.find('.playerscore').html(data['score']);
     }
+
+    setTimeout(function () {
+        showFB('Cryptite', 'First Blood!');
+    }, 2000);
+
+    setTimeout(function () {
+        showFB('Cryptite', 'Double Kill!');
+    }, 4000);
+
+    setTimeout(function () {
+        showFB('13lackpearl', 'Penta Kill!');
+    }, 6000);
+
+    setTimeout(function () {
+        showFB('Magpieman', 'Double Kill!');
+    }, 15000);
 
     socket.on('announce', function (data) {
         showFB(data['player'], data['message']);

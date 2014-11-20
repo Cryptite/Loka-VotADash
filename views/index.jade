@@ -38,9 +38,11 @@ block content
         p(class="hidden point")= "hidden"
     div.announce
         img.announceavatar(src="./images/steve.png")
-        p.announceplayer= "Cryptite"
-        br
-        p.announcemessage= "First Blood"
+        div.announcetext
+            p.announcemessage= "First Blood"
+            br
+            p.announceplayer.redgradient= "Cryptite"
+
     div.redstats
         table
             thead

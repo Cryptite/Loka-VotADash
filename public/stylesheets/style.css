@@ -39,36 +39,39 @@ body {
     right: 0;
     top: 0;
     bottom: 60%;
-    width: 300px;
+    width: 335px;
     height: 70px;
     background-color: rgba(116, 116, 119, 0.33);
     border-radius: 5px;
     opacity: 0;
     border-top: 2px solid #c5c6c1;
     border-bottom: 2px solid #c5c6c1;
+}
 
-    transition: all 500ms;
-    -webkit-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-    -o-transition: all 500ms ease-in-out;
+.announcetext {
+    position: absolute;
+    width: 80%;
+    top: 0;
+    left: 20%;
 }
 
 .announceplayer {
-    position: absolute;
-    width: 75%;
-    top: 0;
-    font-size: 32px;
+    display: block;
+    width: 100%;
+    font-size: 26px;
+    margin-top: -60px;
     text-align: center;
     text-shadow: 4px 4px #0c0c0c;
+    /*color: rgba(236, 79, 70, 1);*/
 }
 
 .announcemessage {
-    position: absolute;
-    width: 75%;
-    font-size: 26px;
-    top: 35px;
-    left: 40px;
+    display: block;
+    width: 100%;
+    font-size: 36px;
     text-align: center;
+    text-shadow: 4px 4px #0c0c0c;
+    margin-top: 0;
 }
 
 .announceavatar {
