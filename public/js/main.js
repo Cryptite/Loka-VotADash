@@ -1,6 +1,6 @@
 $(function () {
-    var redScore = $('.redscore');
-    var blueScore = $('.bluescore');
+    var redScore = $('.red');
+    var blueScore = $('.blue');
 
     var lower = $('.lower');
     var middle = $('.middle');
