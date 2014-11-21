@@ -14,6 +14,7 @@ var db = monk('iron.minecraftarium.com:27017/loka');
 
 var routes = require('./routes/index');
 var dash = require('./routes/dash');
+var intro = require('./routes/intro');
 var users = require('./routes/users');
 
 var app = express();
