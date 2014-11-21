@@ -9,7 +9,7 @@ var mongojs = require('mongojs');
 var uri = "mongodb://iron.minecraftarium.com:27017/loka";
 var db = mongojs.connect(uri, ["stats"]);
 
-var imagesPath = "../public/images/";
+var imagesPath = "./public/images/";
 
 app.set('port', process.env.PORT || 3000);
 
@@ -49,6 +49,9 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('get_players', function (message) {
         socket.broadcast.emit('get_players', '-');
+    });
+    socket.on('stats', function (message) {
+        socket.broadcast.emit('stats', message);
     });
 });
 
