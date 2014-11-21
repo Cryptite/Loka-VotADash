@@ -35,8 +35,6 @@ $(function () {
             var bluePlayer = data.blue[blue];
             statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer['name'] + '.png" class="statsavatar"/></th><th>' + bluePlayer['name'] + '</th><th>' + bluePlayer['score'] + '</th><th>' + bluePlayer['kdr'] + '</th><th>' + bluePlayer['cpg'] + '</th></tr>');
         }
-
-        showStats();
     }
 
     function showStats() {
@@ -231,6 +229,15 @@ $(function () {
 
     socket.on('announce', function (data) {
         showFB(data['player'], data['message']);
+    });
+
+    socket.on('stats', function (data) {
+        if (data.stats == "show") {
+            updateStats(data);
+            showStats();
+        } else {
+            hideStats();
+        }
     });
 
     socket.on('playerscore', function (data) {
