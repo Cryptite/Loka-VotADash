@@ -15,7 +15,7 @@ $(function () {
     var blueContainer = $('.blueplayers');
 
     /* Socket Work */
-    var socket = io.connect('http://lokamc:3001');
+    var socket = io.connect('http://loka.minecraftarium.com:3001');
     socket.emit("get_players", "-");
 
     /*Statistics Handling*/
