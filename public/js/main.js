@@ -15,7 +15,7 @@ $(function () {
     var blueContainer = $('.blueplayers');
 
     /* Socket Work */
-    var socket = io.connect('http://localhost:3001');
+    var socket = io.connect('http://loka.minecraftarium.com:3001');
     socket.emit("get_players", "-");
 
     /*Statistics Handling*/
@@ -170,9 +170,9 @@ $(function () {
         } else {
             var blueHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
                 + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><br></div>';
-            for (var talent in player['talents']) {
-                console.log("Talents for " + player['name'] + ": " + ok[0]);
-            }
+//            for (var talent in player['talents']) {
+//                console.log("Talents for " + player['name'] + ": " + ok[0]);
+//            }
             //</div>';
             blueContainer.append(blueHTML);
         }
