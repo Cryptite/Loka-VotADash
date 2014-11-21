@@ -9,7 +9,7 @@ var mongojs = require('mongojs');
 var uri = "mongodb://iron.minecraftarium.com:27017/loka";
 var db = mongojs.connect(uri, ["stats"]);
 
-var imagesPath = "../public/images/";
+var imagesPath = "./public/images/";
 
 app.set('port', process.env.PORT || 3000);
 

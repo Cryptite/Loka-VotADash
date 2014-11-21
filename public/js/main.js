@@ -15,7 +15,7 @@ $(function () {
     var blueContainer = $('.blueplayers');
 
     /* Socket Work */
-    var socket = io.connect('http://localhost:3001');
+    var socket = io.connect('http://lokamc:3001');
     socket.emit("get_players", "-");
 
     /*Statistics Handling*/
@@ -96,18 +96,18 @@ $(function () {
     //TEST populating players
     redContainer.html('');
 
-    setTimeout(function () {
-        updateStats({
-            red: {
-                0: {name: "Leasaur", score: 150, kdr: 1.5, cpg: 5.2},
-                1: {name: "godemox", score: 150, kdr: 1.5, cpg: 5.2},
-                2: {name: "computern", score: 150, kdr: 1.5, cpg: 5.2}},
-            blue: {
-                0: {name: "Defgnww", score: 150, kdr: 1.7, cpg: 6.2},
-                1: {name: "mopb3", score: 150, kdr: 1.5, cpg: 5.2},
-                2: {name: "MasterTargaryen", score: 150, kdr: 1.5, cpg: 5.2}}
-        });
-    }, 1000);
+//    setTimeout(function () {
+//        updateStats({
+//            red: {
+//                0: {name: "Leasaur", score: 150, kdr: 1.5, cpg: 5.2},
+//                1: {name: "godemox", score: 150, kdr: 1.5, cpg: 5.2},
+//                2: {name: "computern", score: 150, kdr: 1.5, cpg: 5.2}},
+//            blue: {
+//                0: {name: "Defgnww", score: 150, kdr: 1.7, cpg: 6.2},
+//                1: {name: "mopb3", score: 150, kdr: 1.5, cpg: 5.2},
+//                2: {name: "MasterTargaryen", score: 150, kdr: 1.5, cpg: 5.2}}
+//        });
+//    }, 1000);
 
     /* Populate players */
     function populatePlayers(data) {
@@ -146,19 +146,19 @@ $(function () {
         updateContainerPosition("blue");
     }
 
-    setTimeout(function () {
-        addPlayer("red", {name: "Defgnww", score: 150, talents: [12, 24, 13]});
-        addPlayer("red", {name: "MasterTargaryen", score: 150, talents: [12, 24, 13]});
-        addPlayer("red", {name: "mopb3", score: 150, talents: [12, 24, 13]});
-//        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
-        updateContainerPosition("red");
-
-        addPlayer("blue", {name: "godemox", score: 150, talents: [12, 24, 13]});
-        addPlayer("blue", {name: "computern", score: 150, talents: [12, 24, 13]});
-        addPlayer("blue", {name: "Leasaur", score: 150, talents: [12, 24, 13]});
-//        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
-        updateContainerPosition("blue");
-    }, 6000);
+//    setTimeout(function () {
+//        addPlayer("red", {name: "Defgnww", score: 150, talents: [12, 24, 13]});
+//        addPlayer("red", {name: "MasterTargaryen", score: 150, talents: [12, 24, 13]});
+//        addPlayer("red", {name: "mopb3", score: 150, talents: [12, 24, 13]});
+////        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
+//        updateContainerPosition("red");
+//
+//        addPlayer("blue", {name: "godemox", score: 150, talents: [12, 24, 13]});
+//        addPlayer("blue", {name: "computern", score: 150, talents: [12, 24, 13]});
+//        addPlayer("blue", {name: "Leasaur", score: 150, talents: [12, 24, 13]});
+////        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
+//        updateContainerPosition("blue");
+//    }, 6000);
 
     function addPlayer(team, player) {
         socket.emit("avatar", player['name']);
