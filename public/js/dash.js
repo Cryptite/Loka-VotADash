@@ -1,28 +1,27 @@
 $(function () {
     var showStats = $('.showstats');
     var hideStats = $('.hidestats');
-    var state = $('.statstate');
+
+    var versusSubmit = $('.submitversus');
+    var blueTeam = $('.blue');
+    var redTeam = $('.red');
+
+    /* Socket Work */
+    var socket = io.connect('http://localhost:3001');
 
     showStats.click(function (evt) {
+        socket.emit("stats", {"stats": "show"});
         evt.preventDefault();
-
-        $.ajax({
-            url: "/showstats/",
-            success: function (e) {
-                state.html("Showing");
-            }
-        });
     });
 
     hideStats.click(function (evt) {
         evt.preventDefault();
+        socket.emit("stats", {"stats": "hide"});
+    });
 
-        $.ajax({
-            url: "/hidestats/",
-            type: "GET",
-            success: function (e) {
-                state.html("Hidden");
-            }
-        });
+    versusSubmit.click(function (evt) {
+        evt.preventDefault();
+        console.log("submitting!");
+        socket.emit("versus", {"blue": blueTeam.val(), "red": redTeam.val()});
     });
 });

@@ -126,7 +126,7 @@ $(function () {
                 delay: counter});
         }
 
-        updateContainerPosition("red");
+//        updateContainerPosition("red");
 
         for (var blue in data.blue) {
             var bluePlayer = data.blue[blue];
@@ -141,37 +141,40 @@ $(function () {
                 delay: counter});
         }
 
-        updateContainerPosition("blue");
+//        updateContainerPosition("blue");
     }
 
-//    setTimeout(function () {
-//        addPlayer("red", {name: "Defgnww", score: 150, talents: [12, 24, 13]});
-//        addPlayer("red", {name: "MasterTargaryen", score: 150, talents: [12, 24, 13]});
-//        addPlayer("red", {name: "mopb3", score: 150, talents: [12, 24, 13]});
-////        addPlayer("red", {name: "eevee500", score: 150, talents: [12, 24, 13]});
+    setTimeout(function () {
+        addPlayer("red", {name: "Defgnww", score: 150, talents: [27, 36, 28]});
+        addPlayer("red", {name: "MasterTargaryen", score: 150, talents: [37, 30, 39]});
+        addPlayer("red", {name: "mopb3", score: 150, talents: [34, 43, 35]});
 //        updateContainerPosition("red");
-//
-//        addPlayer("blue", {name: "godemox", score: 150, talents: [12, 24, 13]});
-//        addPlayer("blue", {name: "computern", score: 150, talents: [12, 24, 13]});
-//        addPlayer("blue", {name: "Leasaur", score: 150, talents: [12, 24, 13]});
-////        addPlayer("blue", {name: "Dwemer_Sphere", score: 150, talents: [12, 24, 13]});
+
+        addPlayer("blue", {name: "godemox", score: 150, talents: [39, 27, 35]});
+        addPlayer("blue", {name: "computern", score: 150, talents: [34, 39, 30]});
+        addPlayer("blue", {name: "Leasaur", score: 150, talents: [44, 39, 43]});
 //        updateContainerPosition("blue");
-//    }, 6000);
+    }, 3000);
 
     function addPlayer(team, player) {
         socket.emit("avatar", player['name']);
 
         if (team == "red") {
             var redHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
-                + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><br></div>';
+                + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><div class="talentscontainer">';
+            for (var t = 0; t < player['talents'].length; t++) {
+                redHTML += getTalent(player['talents'][t]);
+            }
+            redHTML += '</div></div>';
             redContainer.append(redHTML);
         } else {
             var blueHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
-                + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><br></div>';
-//            for (var talent in player['talents']) {
-//                console.log("Talents for " + player['name'] + ": " + ok[0]);
-//            }
-            //</div>';
+                + '</p><br/><p class="playername">' + player['name'] + '</p><br><div class="talentscontainer">';
+
+            for (var blueTalent = 0; blueTalent < player['talents'].length; blueTalent++) {
+                blueHTML += getTalent(player['talents'][blueTalent]);
+            }
+            blueHTML += '</div><img src="./images/steve.png" class="avatar"/></div>';
             blueContainer.append(blueHTML);
         }
 
@@ -181,6 +184,32 @@ $(function () {
             duration: 500,
             easing: 'easeOutQuart',
             delay: 500});
+    }
+
+    function getTalent(number) {
+        if (number == "27") {
+            return '<img src="./images/frosttrap.png" class="talent offense"/>';
+        } else if (number == "36") {
+            return '<img src="./images/explosivearrow.png" class="talent offense"/>';
+        } else if (number == "28") {
+            return '<img src="./images/thrillofthekill.png" class="talent offense"/>';
+        } else if (number == "37") {
+            return '<img src="./images/lunge.png" class="talent offense"/>';
+        } else if (number == "30") {
+            return '<img src="./images/hook.png" class="talent defense"/>';
+        } else if (number == "39") {
+            return '<img src="./images/quake.png" class="talent defense"/>';
+        } else if (number == "41") {
+            return '<img src="./images/laststand.png" class="talent defense"/>';
+        } else if (number == "34") {
+            return '<img src="./images/rallyingcry.png" class="talent support"/>';
+        } else if (number == "43") {
+            return '<img src="./images/silence.png" class="talent support"/>';
+        } else if (number == "35") {
+            return '<img src="./images/lifeshield.png" class="talent support"/>';
+        } else if (number == "44") {
+            return '<img src="./images/freyjiasarrow.png" class="talent support"/>';
+        }
     }
 
     function removePlayer(player) {

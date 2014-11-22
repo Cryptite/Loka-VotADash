@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    div.redstats
+    div.redstatsintro
         p.redname= "Red Team"
         table
             thead
@@ -17,7 +17,7 @@ block content
                     th= "1"
                     th= "1"
                     th= "2"
-    div.bluestats
+    div.bluestatsintro
         p.bluename= "Blue Team"
         table
             thead
@@ -33,6 +33,9 @@ block content
                     th= "3"
                     th= "1"
                     th= "2"
+
+    h1.blueTeam= "Team Name Here"
+    h1.redTeam= "Team Name Here"
 
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js")
     script(src="./js/intro.js")

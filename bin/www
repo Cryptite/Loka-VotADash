@@ -53,6 +53,9 @@ io.sockets.on('connection', function (socket) {
     socket.on('stats', function (message) {
         socket.broadcast.emit('stats', message);
     });
+    socket.on('versus', function (message) {
+        socket.broadcast.emit('versus', message);
+    });
 });
 
 var getAvatar = function (socket, player) {
