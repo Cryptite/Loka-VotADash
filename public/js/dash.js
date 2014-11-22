@@ -7,7 +7,7 @@ $(function () {
     var redTeam = $('.red');
 
     /* Socket Work */
-    var socket = io.connect('http://localhost:3001');
+    var socket = io.connect('http://loka.minecraftarium.com:3001');
 
     showStats.click(function (evt) {
         socket.emit("stats", {"stats": "show"});

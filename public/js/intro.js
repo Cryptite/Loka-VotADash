@@ -6,7 +6,7 @@ $(function () {
     var versusBlue = $('.blueTeam');
 
     /* Socket Work */
-    var socket = io.connect('http://localhost:3001');
+    var socket = io.connect('http://loka.minecraftarium.com:3001');
 
     /*Statistics Handling*/
     function updateStats(data) {

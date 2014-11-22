@@ -144,17 +144,17 @@ $(function () {
 //        updateContainerPosition("blue");
     }
 
-    setTimeout(function () {
-        addPlayer("red", {name: "Defgnww", score: 150, talents: [27, 36, 28]});
-        addPlayer("red", {name: "MasterTargaryen", score: 150, talents: [37, 30, 39]});
-        addPlayer("red", {name: "mopb3", score: 150, talents: [34, 43, 35]});
-//        updateContainerPosition("red");
-
-        addPlayer("blue", {name: "godemox", score: 150, talents: [39, 27, 35]});
-        addPlayer("blue", {name: "computern", score: 150, talents: [34, 39, 30]});
-        addPlayer("blue", {name: "Leasaur", score: 150, talents: [44, 39, 43]});
-//        updateContainerPosition("blue");
-    }, 3000);
+//    setTimeout(function () {
+//        addPlayer("red", {name: "Defgnww", score: 150, talents: [27, 36, 28]});
+//        addPlayer("red", {name: "MasterTargaryen", score: 150, talents: [37, 30, 39]});
+//        addPlayer("red", {name: "mopb3", score: 150, talents: [34, 43, 35]});
+////        updateContainerPosition("red");
+//
+//        addPlayer("blue", {name: "godemox", score: 150, talents: [39, 27, 35]});
+//        addPlayer("blue", {name: "computern", score: 150, talents: [34, 39, 30]});
+//        addPlayer("blue", {name: "Leasaur", score: 150, talents: [44, 39, 43]});
+////        updateContainerPosition("blue");
+//    }, 3000);
 
     function addPlayer(team, player) {
         socket.emit("avatar", player['name']);
@@ -162,8 +162,9 @@ $(function () {
         if (team == "red") {
             var redHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
                 + '</p><br/><p class="playername">' + player['name'] + '</p><br><img src="./images/steve.png" class="avatar"><div class="talentscontainer">';
-            for (var t = 0; t < player['talents'].length; t++) {
-                redHTML += getTalent(player['talents'][t]);
+            var redTalents = player['talents'].split(",");
+            for (var t = 0; t < redTalents.length; t++) {
+                redHTML += getTalent(redTalents[t]);
             }
             redHTML += '</div></div>';
             redContainer.append(redHTML);
@@ -171,8 +172,9 @@ $(function () {
             var blueHTML = '<div class="player ' + player['name'] + '"><p class="playerscore">' + player['score']
                 + '</p><br/><p class="playername">' + player['name'] + '</p><br><div class="talentscontainer">';
 
-            for (var blueTalent = 0; blueTalent < player['talents'].length; blueTalent++) {
-                blueHTML += getTalent(player['talents'][blueTalent]);
+            var blueTalents = player['talents'].split(",");
+            for (var blueTalent = 0; blueTalent < blueTalents.length; blueTalent++) {
+                blueHTML += getTalent(blueTalents[blueTalent]);
             }
             blueHTML += '</div><img src="./images/steve.png" class="avatar"/></div>';
             blueContainer.append(blueHTML);
@@ -209,6 +211,8 @@ $(function () {
             return '<img src="./images/lifeshield.png" class="talent support"/>';
         } else if (number == "44") {
             return '<img src="./images/freyjiasarrow.png" class="talent support"/>';
+        } else {
+            return ""
         }
     }
 
