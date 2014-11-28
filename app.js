@@ -58,7 +58,32 @@ app.use("/territories", function (req, res) {
         res.header('Access-Control-Allow-Origin', "*");
         res.header('Access-Control-Allow-Methods', 'GET');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
-        res.send(data);
+
+        //Make this data more meaningful
+        var mapData = {};
+        var towns = [];
+        for (var i = 0; i <= data.length; i++) {
+            var node = data[i];
+            if (node != undefined) {
+                if (towns.indexOf(node.town) == -1) {
+                    towns.push(node.town);
+                }
+            }
+        }
+
+        for (var t = 0; t <= towns.length; t++) {
+            var townData = [];
+            var townName = towns[t];
+            for (var i = 0; i <= data.length; i++) {
+                var node = data[i];
+                if (node != undefined && node.town == townName) {
+                    townData.push(node);
+                }
+            }
+            mapData[townName] = townData;
+        }
+
+        res.send(mapData);
     });
 });
 
