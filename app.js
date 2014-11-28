@@ -79,6 +79,16 @@ app.use('/dash', dash);
 app.use('/intro', intro);
 app.use('/users', users);
 
+app.use("/territories", function (req, res) {
+    var db = req.db;
+    var collection = db.get('territories');
+
+    //Get game data
+    collection.find({}, function (e, data) {
+        res.send(data);
+    });
+});
+
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
