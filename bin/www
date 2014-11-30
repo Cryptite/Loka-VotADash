@@ -78,8 +78,9 @@ var getAvatar = function (socket, player) {
 };
 
 var download = function (socket, player) {
-    request.head("https://minotar.net/avatar/" + player + "/150.png", function (err, res, body) {
-        request("https://minotar.net/avatar/" + player + "/150.png").pipe(fs.createWriteStream(imagesPath + player + "_dl.png")).on('close', function () {
+    var url = "https://crafatar.com/avatars/" + player + "?size=150&helm&default=steve";
+    request.head(url, function (err, res, body) {
+        request(url).pipe(fs.createWriteStream(imagesPath + player + "_dl.png")).on('close', function () {
             if (fs.existsSync(imagesPath + player + "_dl.png")) {
                 console.log("Renaming " + player);
                 fs.rename(imagesPath + player + "_dl.png", imagesPath + player + ".png");
