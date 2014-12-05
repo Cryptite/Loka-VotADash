@@ -1,13 +1,8 @@
 extends layout
 
 block content
-    a(href="#" class="showstats")= "Show  "
-    br
-    a(href="#" class="hidestats")= "Hide"
-    br
-    p.statstate= "----"
-    br
-    br
+    div.statsbuttons
+        a(href="#" class="statsbutton stats")= "Show"
     input.red= "Team1"
     input.blue= "Team2"
     button.submitversus= "Submit versus"

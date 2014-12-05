@@ -26,6 +26,9 @@ io.sockets.on('connection', function (socket) {
     socket.on('scores', function (message) {
         socket.broadcast.emit('scores', message);
     });
+    socket.on('currentMatch', function (message) {
+        socket.broadcast.emit('currentMatch', message);
+    });
     socket.on('players', function (message) {
         socket.broadcast.emit('players', message);
     });
