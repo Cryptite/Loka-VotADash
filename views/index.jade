@@ -22,7 +22,10 @@ block content
             p.announcemessage= "First Blood"
             br
             p.announceplayer.redgradient= "Cryptite"
-
+    div.kills
+        div.kill.kill-red
+            img.killer(src="./images/steve.png")
+            img.victim(src="./images/steve.png")
     div.redstats
         p.redname= "Red Team"
         table
@@ -31,14 +34,16 @@ block content
                     th= ""
                     th= "Name"
                     th= "Score"
-                    th= "KDR"
-                    th= "CPG"
+                    th= "Kills"
+                    th= "Deaths"
+                    th= "Caps"
             tbody.redstatsbody
                 tr
                     th= "Cryptite"
                     th= "1"
                     th= "1"
                     th= "2"
+                    th= "3"
     div.bluestats
         p.bluename= "Blue Team"
         table
@@ -47,8 +52,9 @@ block content
                     th= ""
                     th= "Name"
                     th= "Score"
-                    th= "KDR"
-                    th= "CPG"
+                    th= "Kills"
+                    th= "Deaths"
+                    th= "Caps"
             tbody.bluestatsbody
                 tr
                     th= "Cryptite"

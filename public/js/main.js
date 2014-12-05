@@ -14,6 +14,8 @@ $(function () {
     var redContainer = $('.redplayers');
     var blueContainer = $('.blueplayers');
 
+    var killCounter = 0;
+
     /* Socket Work */
     var socket = io.connect('http://loka.minecraftarium.com:3001');
     socket.emit("get_players", "-");
@@ -28,12 +30,18 @@ $(function () {
 
         for (var red in data.red) {
             var redPlayer = data.red[red];
-            stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer['name'] + '.png" class="statsavatar"/></th><th>' + redPlayer['name'] + '</th><th>' + redPlayer['score'] + '</th><th>' + redPlayer['kdr'] + '</th><th>' + redPlayer['cpg'] + '</th></tr>');
+            stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer['name']
+                + '.png" class="statsavatar"/></th><th>' + redPlayer['name'] + '</th><th>' + redPlayer['score']
+                + '</th><th>' + redPlayer['kills'] + '</th><th>' + redPlayer['deaths'] + '</th><th>'
+                + redPlayer['caps'] + '</th></tr>');
         }
 
         for (var blue in data.blue) {
             var bluePlayer = data.blue[blue];
-            statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer['name'] + '.png" class="statsavatar"/></th><th>' + bluePlayer['name'] + '</th><th>' + bluePlayer['score'] + '</th><th>' + bluePlayer['kdr'] + '</th><th>' + bluePlayer['cpg'] + '</th></tr>');
+            statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer['name']
+                + '.png" class="statsavatar"/></th><th>' + bluePlayer['name'] + '</th><th>' + bluePlayer['score']
+                + '</th><th>' + bluePlayer['kills'] + '</th><th>' + bluePlayer['deaths'] + '</th><th>'
+                + bluePlayer['caps'] + '</th></tr>');
         }
     }
 
@@ -247,6 +255,62 @@ $(function () {
         }
     }
 
+    setTimeout(function () {
+        showKill({team: "red",
+            killer: "Defgnww",
+            victim: "MasterTargaryen"});
+    }, 3000);
+
+    setTimeout(function () {
+        showKill({team: "red",
+            killer: "Defgnww",
+            victim: "MasterTargaryen"});
+    }, 5000);
+
+    setTimeout(function () {
+        showKill({team: "red",
+            killer: "Defgnww",
+            victim: "MasterTargaryen"});
+    }, 8000);
+
+    setTimeout(function () {
+        showKill({team: "red",
+            killer: "Defgnww",
+            victim: "MasterTargaryen"});
+    }, 9000);
+
+    setTimeout(function () {
+        showKill({team: "blue",
+            killer: "Defgnww",
+            victim: "MasterTargaryen"});
+    }, 10000);
+
+    function showKill(data) {
+        var kills = $('.kills');
+        var killHTML = '<div class="kill kill-' + data.team + ' kill-' + killCounter + '"><img src="./images/' + data.killer
+            + '.png" class="killer"><img src="./images/' + data.victim + '.png" class="victim"></div>';
+        kills.append(killHTML);
+
+        var thisKill = $('.kill-' + killCounter);
+
+        thisKill.velocity({
+            opacity: [1, 0],
+            scale: [1, 1.5]
+        }, 500, function () {
+            thisKill.velocity({
+                opacity: 0
+            }, {
+                duration: 1000,
+                delay: 5000,
+                complete: function () {
+                    thisKill.remove();
+                }
+            })
+        });
+
+        killCounter++;
+    }
+
     function getTeamPos(numPlayers) {
         if (numPlayers <= 1) return 40 + '%';
         else if (numPlayers > 5) return 20 + '%';
@@ -275,6 +339,10 @@ $(function () {
 
     socket.on('playerscore', function (data) {
         updatePlayerScore(data);
+    });
+
+    socket.on('kill', function (data) {
+        showKill(data);
     });
 
     socket.on('joinplayer', function (data) {
