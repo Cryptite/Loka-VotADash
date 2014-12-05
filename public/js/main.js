@@ -263,6 +263,7 @@ $(function () {
 
         var thisKill = $('.kill-' + killCounter);
 
+        //Show kill popup
         thisKill.velocity({
             opacity: [1, 0],
             scale: [1, 1.5]
@@ -276,6 +277,19 @@ $(function () {
                     thisKill.remove();
                 }
             })
+        });
+
+        //'Gray' out the player on the bottom player
+        var player = $('.' + data.victim).find(".avatar");
+        player.velocity({
+            opacity: .25
+        }, 500, function () {
+            player.velocity({
+                opacity: 1
+            }, {
+                duration: 1000,
+                delay: 10000
+            });
         });
 
         killCounter++;
@@ -346,19 +360,5 @@ $(function () {
         console.log("Updating avatar for " + data.name);
         var player = $('.' + data.name);
         player.find(".avatar").attr('src', data.path);
-    });
-
-    socket.on('killed', function (data) {
-        var player = $('.' + data['name']).find(".avatar");
-        player.velocity({
-            opacity: .25
-        }, 500, function () {
-            player.velocity({
-                opacity: 1
-            }, {
-                duration: 1000,
-                delay: 10000
-            });
-        });
     });
 });

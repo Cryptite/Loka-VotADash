@@ -32,9 +32,6 @@ io.sockets.on('connection', function (socket) {
     socket.on('joinplayer', function (message) {
         socket.broadcast.emit('joinplayer', message);
     });
-    socket.on('killed', function (message) {
-        socket.broadcast.emit('killed', message);
-    });
     socket.on('kill', function (message) {
         socket.broadcast.emit('kill', message);
     });
