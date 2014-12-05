@@ -255,36 +255,6 @@ $(function () {
         }
     }
 
-    setTimeout(function () {
-        showKill({team: "red",
-            killer: "Defgnww",
-            victim: "MasterTargaryen"});
-    }, 3000);
-
-    setTimeout(function () {
-        showKill({team: "red",
-            killer: "Defgnww",
-            victim: "MasterTargaryen"});
-    }, 5000);
-
-    setTimeout(function () {
-        showKill({team: "red",
-            killer: "Defgnww",
-            victim: "MasterTargaryen"});
-    }, 8000);
-
-    setTimeout(function () {
-        showKill({team: "red",
-            killer: "Defgnww",
-            victim: "MasterTargaryen"});
-    }, 9000);
-
-    setTimeout(function () {
-        showKill({team: "blue",
-            killer: "Defgnww",
-            victim: "MasterTargaryen"});
-    }, 10000);
-
     function showKill(data) {
         var kills = $('.kills');
         var killHTML = '<div class="kill kill-' + data.team + ' kill-' + killCounter + '"><img src="./images/' + data.killer
