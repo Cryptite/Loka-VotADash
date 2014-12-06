@@ -7,6 +7,7 @@ $(function () {
 
     /* Socket Work */
     var socket = io.connect('http://loka.minecraftarium.com:3001');
+    socket.emit("get_current_match", "-");
 
     /*Statistics Handling*/
     function updateStats(data) {
