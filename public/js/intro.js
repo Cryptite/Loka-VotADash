@@ -6,7 +6,7 @@ $(function () {
     var versusBlue = $('.blueTeam');
 
     /* Socket Work */
-    var socket = io.connect('http://loka.minecraftarium.com:3001');
+    var socket = io.connect('http://lokamc.com:3001');
     socket.emit("get_current_match", "-");
 
     /*Statistics Handling*/
@@ -118,6 +118,7 @@ $(function () {
     });
 
     socket.on('versus', function (data) {
+        console.log("Versus received");
         versusRed.html(data["red"]);
         versusBlue.html(data["blue"]);
 

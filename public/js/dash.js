@@ -6,10 +6,12 @@ $(function () {
     var redTeam = $('.red');
 
     /* Socket Work */
-    var socket = io.connect('http://loka.minecraftarium.com:3001');
+    var socket = io.connect('http://lokamc.com:3001');
 
     statsButton.click(function (evt) {
         if (statsButton.html() == "Show") {
+
+            socket.emit("get_players", "-");
             socket.emit("stats", {"stats": "show"});
             statsButton.html("Hide");
         } else {

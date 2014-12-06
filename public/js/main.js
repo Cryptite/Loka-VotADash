@@ -2,6 +2,11 @@ $(function () {
     var redScore = $('.red');
     var blueScore = $('.blue');
 
+    var redTeamScoreName = $('.rednamescore');
+    var redTeamStatsName = $('.redname');
+    var blueTeamScoreName = $('.bluenamescore');
+    var blueTeamStatsName = $('.bluename');
+
     var lower = $('.lower');
     var middle = $('.middle');
     var hidden = $('.hidden');
@@ -14,10 +19,13 @@ $(function () {
     var redContainer = $('.redplayers');
     var blueContainer = $('.blueplayers');
 
+    var redTeamName = "Red Team";
+    var blueTeamName = "Blue Team";
+
     var killCounter = 0;
 
     /* Socket Work */
-    var socket = io.connect('http://loka.minecraftarium.com:3001');
+    var socket = io.connect('http://lokamc.com:3001');
     socket.emit("get_players", "-");
 
     /*Statistics Handling*/
@@ -30,6 +38,7 @@ $(function () {
 
         for (var red in data.red) {
             var redPlayer = data.red[red];
+            console.log(redPlayer);
             stats.append('<tr class="playerstat"><th><img src="./images/' + redPlayer['name']
                 + '.png" class="statsavatar"/></th><th>' + redPlayer['name'] + '</th><th>' + redPlayer['score']
                 + '</th><th>' + redPlayer['kills'] + '</th><th>' + redPlayer['deaths'] + '</th><th>'
@@ -37,6 +46,7 @@ $(function () {
         }
 
         for (var blue in data.blue) {
+            console.log(bluePlayer);
             var bluePlayer = data.blue[blue];
             statsBlue.append('<tr class="playerstat"><th><img src="./images/' + bluePlayer['name']
                 + '.png" class="statsavatar"/></th><th>' + bluePlayer['name'] + '</th><th>' + bluePlayer['score']
@@ -313,6 +323,7 @@ $(function () {
     });
 
     socket.on('stats', function (data) {
+        console.log("stats: " + data);
         if (data.stats == "show") {
             updateStats(data);
             showStats();
@@ -337,6 +348,16 @@ $(function () {
         removePlayer(data);
     });
 
+    socket.on('teams', function (data) {
+        redTeamName = data["red"];
+        blueTeamName = data["blue"];
+
+        redTeamScoreName.html(redTeamName);
+        redTeamStatsName.html(redTeamName);
+        blueTeamScoreName.html(blueTeamName);
+        blueTeamStatsName.html(blueTeamName);
+    });
+
     socket.on('scores', function (data) {
         redScore.html(data["red"]);
         blueScore.html(data["blue"]);
@@ -344,6 +365,7 @@ $(function () {
 
     socket.on('players', function (data) {
         populatePlayers(data);
+        updateStats(data);
     });
 
     socket.on('artifact', function (data) {
