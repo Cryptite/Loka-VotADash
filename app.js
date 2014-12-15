@@ -10,7 +10,7 @@ var mongo = require('mongojs');
 var monk = require('monk');
 var fs = require('fs'),
     request = require('request');
-var db = monk('iron.minecraftarium.com:27017/loka');
+var db = monk('steel.minecraftarium.com:27017/loka');
 
 var routes = require('./routes/index');
 var dash = require('./routes/dash');
